@@ -1,0 +1,39 @@
+
+.over {
+  background-color: #eee;
+}
+
+.drop {
+  background-color: #defadc;
+}
+
+.selected {
+  background-color: #d9e8fb !important;
+}
+
+.text {
+  font: normal 11px arial, tahoma, helvetica, sans-serif;
+  color: black;
+}
+
+.tree img{
+ 	margin: -5px 0 0 0;
+ 	
+  
+}
+
+.node {
+	margin:0 0 0 0px;
+	padding:0
+}
+
+.element {
+	margin:0 0 0 15px;
+}
+.joint{
+ width:0 !important;
+}
+.icon {
+	width:0;
+	height:0;
+}

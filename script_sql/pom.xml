@@ -1,0 +1,137 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>it.lispa.sire.cultura.biblioteche</groupId>
+		<artifactId>bdl</artifactId>
+		<version>2.2.2</version>
+	</parent>
+
+	<artifactId>bdl-script_sql</artifactId>
+	<packaging>zip</packaging>
+	<name>bdl-script_sql</name>
+	
+	<properties>
+	      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	
+    <build>
+        <sourceDirectory>src/main/resource</sourceDirectory>
+        <plugins>
+            <plugin>
+                <groupId>it.lispa.siss.maven-plugins</groupId>
+                <artifactId>custom-package-plugin</artifactId>
+                <version>1.9.0</version>
+                <extensions>true</extensions>
+                <executions>
+                
+                    <execution>
+                        <id>scripts-2.2.2</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>db-zip</goal>
+                        </goals>
+                        <configuration>
+                            <db>BDL</db>
+                            <scripts>
+                                <script>
+                                    <file>${basedir}/src/main/resource/580_CREATE_TABLE_BDL_VETRINA.sql</file>
+                                      <customPrologue>
+									    <lines>
+									      <line>SET DEFINE OFF;</line>
+									      <line>SET SQLBL ON;</line>
+									    </lines>
+									  </customPrologue>
+                                    <schema>BDL</schema>
+                                    <operazione>CREATE</operazione>
+                                    <oggetto>TABLE</oggetto>
+                                    <nomeOggetto>BDL_VETRINA</nomeOggetto>
+                                    <dropOggetto>NO</dropOggetto>
+                                </script>
+                                <script>
+                                    <file>${basedir}/src/main/resource/581_ALTER_TABLE_BDL_OGGETTO_ORIGINALE.sql</file>
+                                      <customPrologue>
+									    <lines>
+									      <line>SET DEFINE OFF;</line>
+									      <line>SET SQLBL ON;</line>
+									    </lines>
+									  </customPrologue>
+                                    <schema>BDL</schema>
+                                    <operazione>ALTER</operazione>
+                                    <oggetto>TABLE</oggetto>
+                                    <nomeOggetto>BDL_OGGETTO_ORIGINALE</nomeOggetto>
+                                    <dropOggetto>NO</dropOggetto>
+                                </script>
+                                <script>
+                                    <file>${basedir}/src/main/resource/582_CREATE_VIEW_V_OGGETTI.sql</file>
+                                      <customPrologue>
+									    <lines>
+									      <line>SET DEFINE OFF;</line>
+									      <line>SET SQLBL ON;</line>
+									    </lines>
+									  </customPrologue>
+                                    <schema>BDL</schema>
+                                    <operazione>CREATE</operazione>
+                                    <oggetto>VIEW</oggetto>
+                                    <nomeOggetto>V_OGGETTI</nomeOggetto>
+                                    <dropOggetto>NO</dropOggetto>
+                                </script>
+                                <script>
+                                    <file>${basedir}/src/main/resource/583_BDL_REPLACE_PACKAGE_BDL.sql</file>
+                                      <customPrologue>
+									    <lines>
+									      <line>SET DEFINE OFF;</line>
+									      <line>SET SQLBL ON;</line>
+									    </lines>
+									  </customPrologue>
+                                    <schema>BDL</schema>
+                                    <operazione>REPLACE</operazione>
+                                    <oggetto>PACKAGE</oggetto>
+                                    <nomeOggetto>BDL</nomeOggetto>
+                                    <dropOggetto>NO</dropOggetto>
+                                </script>
+                                <script>
+                                    <file>${basedir}/src/main/resource/584_RUN_PROCEDURE_PRC_UpdateFlRicercaOcr.sql</file>
+                                      <customPrologue>
+									    <lines>
+									      <line>SET DEFINE OFF;</line>
+									      <line>SET SQLBL ON;</line>
+									    </lines>
+									  </customPrologue>
+                                    <schema>BDL</schema>
+                                    <operazione>RUN</operazione>
+                                    <oggetto>PROCEDURE</oggetto>
+                                    <nomeOggetto>PRC_UpdateFlRicercaOcr</nomeOggetto>
+                                    <dropOggetto>NO</dropOggetto>
+                                </script>
+                            </scripts>
+                            <summary>
+                                <appName>BDL ${project:version}</appName>
+                            </summary>
+                        </configuration>
+                    </execution>
+                    
+                </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>it.lispa.siss.maven-plugins</groupId>
+                <artifactId>validate-sql-plugin</artifactId>
+                <version>01.08.13</version>
+                <configuration>
+                    <pathScript>${project.build.directory}/${project.build.finalName}</pathScript>
+                    <ctrCommit>true</ctrCommit>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>validate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

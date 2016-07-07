@@ -1,0 +1,91 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+	<spring:url value="/search" var="linkToSearchAdvanced" />
+	<spring:url value="/json/semantic-search" var="linkToSearchSemantic" />
+	<spring:url value="/search/author/" var="linkToSearchByAuthor" />
+	<spring:url value="/search/subject/" var="linkToSearchBySubject" />
+	<spring:url value="/search/title/" var="linkToSearchByTitle" />
+	
+	<spring:url value="/item/" var="linkToItem" />
+
+	<div id="search-main" class="hidden-print">
+	
+		<div id="dialog-message" title="Attenzione">
+		  <p class="hidden"><jsp:text /></p>
+		</div>
+
+		<div class="container-fluid">
+			<div id="book-search">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="btn-group semantic-buttons">
+							<button type="button" class="btn btn-default active" tabindex="3" id="semantic-button-all">Tutto</button>
+							<c:if test="${not empty types}">
+								<c:forEach items="${types}" var="type" varStatus="contTypes">
+									<c:if test="${not empty type}">
+										<button type="button" class="btn btn-default" tabindex="${contTypes.count+3}" id="semantic-button-${type.id}">${type.name}</button>
+									</c:if>
+								</c:forEach>
+							</c:if>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-10">
+						<form action="${linkToSearchAdvanced}" method="post" id="search-semantic-form">
+							<fieldset id="book-search-form">
+								<legend class="sr-only">Motore di ricerca</legend>
+								<div class="input-group">
+									<label><span class="sr-only">Inserisci un termine di ricerca</span> <input type="text"
+										class="form-control" tabindex="13" name="query" size="20"
+										maxlength="255" id="search-semantic-field" /> </label> <span class="input-group-btn">
+										<button class="btn btn-default" type="submit" tabindex="14">
+											<span class="fa fa-search"></span> <span class="sr-only">Avvia
+												la ricerca</span>
+										</button>
+									</span>
+								</div>
+								<input type="hidden" name="linkToSearchAdvanced" id="linkToSearchAdvanced" value="${linkToSearchAdvanced}" />
+								<input type="hidden" name="linkToSearchSemantic" id="linkToSearchSemantic" value="${linkToSearchSemantic}" />
+								<input type="hidden" name="linkToSearchByAuthor" id="linkToSearchByAuthor" value="${linkToSearchByAuthor}" />
+								<input type="hidden" name="linkToSearchBySubject" id="linkToSearchBySubject" value="${linkToSearchBySubject}" />
+								<input type="hidden" name="linkToItem" id="linkToItem" value="${linkToItem}" />
+							</fieldset>
+						</form>
+						<form action="${linkToSearchByAuthor}" method="post" id="search-semantic-form-author" class="hidden">
+							<fieldset>
+								<input type="hidden" name="cdAuthor" value="" />
+								<input type="hidden" name="descrAuthor" value="" />
+                            </fieldset>
+                        </form>
+						<form action="${linkToSearchBySubject}" method="post" id="search-semantic-form-subject" class="hidden">
+                            <fieldset>
+                                <input type="hidden" name="cdSubject" value="" />
+                                <input type="hidden" name="descrSubject" value="" />
+                            </fieldset>
+						</form>
+						<form action="${linkToSearchByTitle}" method="post" id="search-semantic-form-title" class="hidden">
+                           <fieldset>
+	                           <input type="hidden" name="cdItemType" value="" />
+	                           <input type="hidden" name="descrTitle" value="" />
+                           </fieldset>
+						</form>
+					</div>
+					<div class="col-md-2 book-search-advanced">
+						<a href="${linkToSearchAdvanced}"
+						    id="book-search-advanced-button"
+							class="btn btn-primary btn-block"
+							title="Effettua una ricerca dettagliata">Ricerca avanzata</a>
+					</div>
+				</div>
+			</div>
+			<!-- /#book-search-->
+		</div>
+	</div>
+
+</jsp:root>

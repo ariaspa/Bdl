@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:bdlfeConfig.properties</value>
+                <value>file:${catalina.home}/conf/bdlfeConfig.properties</value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+    </bean>
+    
+    
+    <context:component-scan base-package="it.lispa.bdlfe" />
+    
+    <context:annotation-config />
+    
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+    	<property name="messageConverters">
+        	<list>
+           	 	<bean id="marshallingHttpMessageConverter"
+                  class="org.springframework.http.converter.xml.MarshallingHttpMessageConverter">
+                	<property name="marshaller" ref="jaxbMarshaller" />
+                	<property name="unmarshaller" ref="jaxbMarshaller" />
+            	</bean>   
+            	<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter" />
+            	<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+        	</list>
+    	</property>
+	</bean>
+
+	<bean id="jaxbMarshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+        <property name="classesToBeBound">
+            <list>
+                <value>it.lispa.bdlfe.dto.BdlfeAudioplayerFile</value>
+                <value>it.lispa.bdlfe.dto.BdlfeBookreaderPage</value>
+                <value>it.lispa.bdlfe.dto.BdlfeBookreaderTOC</value>
+                <value>it.lispa.bdlfe.dto.BdlfeCollection</value>
+                <value>it.lispa.bdlfe.dto.BdlfeItem</value>
+                <value>it.lispa.bdlfe.dto.BdlfeInstitute</value>
+                <value>it.lispa.bdlfe.dto.BdlfeMapreader</value>
+                <value>it.lispa.bdlfe.dto.BdlfeRef</value>
+                <value>it.lispa.bdlfe.dto.BdlfeSearch</value>
+                <value>it.lispa.bdlfe.dto.BdlfeSearchComparator</value>
+                <value>it.lispa.bdlfe.dto.BdlfeSearchFilter</value>
+                <value>it.lispa.bdlfe.dto.BdlfeSemanticSearch</value>
+            </list>
+        </property>
+	</bean>
+	
+	<bean id="log4jInitialization" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	    <property name="targetClass" value="org.springframework.util.Log4jConfigurer"/>
+	    <property name="targetMethod" value="initLogging"/>
+	    <property name="arguments">
+	        <list>
+	            <value>file:${catalina.home}/conf/bdlfeLog4j.properties</value>
+	        </list>
+	    </property>
+	</bean>
+</beans>

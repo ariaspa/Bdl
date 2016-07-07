@@ -1,0 +1,24 @@
+<!-- Tema GXT personalizzato per il progetto Banca Digitale Lombarda -->
+
+<module>
+  <inherits name="com.sencha.gxt.theme.base.Base" />
+
+  <replace-with class="it.lispa.bdl.gxt.theme.custom.client.CustomThemeAppearance">
+    <when-type-is class="com.sencha.gxt.core.client.resources.ThemeStyles.ThemeAppearance" />
+  </replace-with>
+ 
+ <!-- Personalizzazione stile panel -->
+  <replace-with class="it.lispa.bdl.gxt.theme.custom.client.panel.CustomContentPanelAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.ContentPanel.ContentPanelAppearance" />
+  </replace-with>
+  <!-- Personalizzazione stile del container principale -->
+  <replace-with class="it.lispa.bdl.gxt.theme.custom.client.container.CustomBorderLayoutAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.container.BorderLayoutContainer.BorderLayoutAppearance" />
+  </replace-with>
+  
+  <!-- Personalizzazione stile del tree  widget-->
+  <replace-with class="it.lispa.bdl.gxt.theme.custom.client.tree.CustomTreeAppearance">
+    <when-type-is class="com.sencha.gxt.widget.core.client.tree.Tree.TreeAppearance" />
+  </replace-with>
+  
+</module>

@@ -1,0 +1,110 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form"
+	xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button">
+
+	<ui:with type="it.lispa.bdl.client.images.Images" field="images" />
+	<ui:with type="it.lispa.bdl.shared.messages.MonitoraggioCriticiMsg"
+		field="messages" />
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="verticalLayoutData">
+		<ui:attributes width="1" height="-1" />
+	</ui:with>
+
+	<gxt:Window ui:field="dialog" buttonAlign="END" resizable="false"
+		modal="false" minHeight="231" pixelSize="600,400">
+		<gxt:FramedPanel headerVisible="false">
+			<form:FieldSet ui:field="fieldSet" headingText="{messages.infoPanel}"
+				collapsible="false">
+				<container:VerticalLayoutContainer>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.titolo}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="titolo" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.titoloFe}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="titoloFe" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.titoloSup}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="titoloSup" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.istituto}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="istituto" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.progetto}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="progetto" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.collezione}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="collezione" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.immagini}"
+							labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="immagini" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.tipologiaOggetto}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="tipologiaOggetto" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.statoFlag}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="statoFlag" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.notaCriticita}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="notaCriticita" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+				</container:VerticalLayoutContainer>
+			</form:FieldSet>
+		</gxt:FramedPanel>
+		<gxt:button>
+			<button:TextButton text="{messages.btnItemAnnulla}"
+				ui:field="annulla" icon="{images.indietro}" />
+		</gxt:button>
+	</gxt:Window>
+</ui:UiBinder>

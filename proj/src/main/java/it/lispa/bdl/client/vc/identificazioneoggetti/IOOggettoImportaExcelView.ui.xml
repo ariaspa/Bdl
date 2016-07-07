@@ -1,0 +1,46 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form" xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:toolbar="urn:import:com.sencha.gxt.widget.core.client.toolbar" xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button"
+	xmlns:up="urn:import:gwtupload.client">
+
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="margins">
+		<ui:attributes top="10" right="5" bottom="10" left="5" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formLayoutData">
+		<ui:attributes width="1" height="-1" margins="{margins}" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formContent">
+		<ui:attributes width="1" height="1"  margins="{margins}" />
+	</ui:with>
+
+	<ui:with type="it.lispa.bdl.client.images.Images" field="images" />
+	<ui:with type="it.lispa.bdl.shared.messages.IOOggettoImportaExcelMsg" field="messages" />
+
+	<gxt:Window ui:field="dialog" buttonAlign="END" resizable="false" modal="false" minHeight="400" pixelSize="750,500" headingText="{messages.infoPanel}">
+		<gxt:FramedPanel headerVisible="false" bodyStyle="padding: 5px;">
+			<container:VerticalLayoutContainer>
+				<container:child layoutData="{formLayoutData}">
+					<g:HTMLPanel>
+						<ui:text from="{messages.txtSpiegazione}" />
+					</g:HTMLPanel>
+				</container:child>
+				<container:child layoutData="{formLayoutData}">
+					<up:MultiUploader type="BROWSER_INPUT" ui:field="uploader" maximumFiles="1" avoidRepeatFiles="true" validExtensions="xlsx" />
+				</container:child>
+				<container:child layoutData="{formLayoutData}">
+					<g:InlineLabel ui:field="txtEsito" />
+				</container:child>
+				<container:child layoutData="{formContent}">
+					<form:TextArea ui:field="logImport" preventScrollbars="false" />
+				</container:child>
+			</container:VerticalLayoutContainer>
+			<gxt:button>
+				<button:TextButton text="{messages.btnChiudi}" icon="{images.annulla}" ui:field="btnChiudi" />
+			</gxt:button>
+		</gxt:FramedPanel>
+	</gxt:Window>
+</ui:UiBinder>

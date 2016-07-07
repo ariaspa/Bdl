@@ -1,0 +1,107 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+    xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+	
+	<jsp:output doctype-root-element="html" doctype-public="-//W3C//DTD XHTML 1.0 Strict//EN" 
+                doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd" />
+	<jsp:directive.page contentType="text/html" pageEncoding="UTF-8" />
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" />
+		
+            
+		<!-- FAVICON e APPLE TOUCH ICON-->
+        <spring:url value="/resources/assets/favicon.ico" var="favicon_url" />
+        <spring:url value="/resources/assets/apple-touch-icon.png" var="apple_touch_icon_url" />
+		<link rel="shortcut icon" href="${favicon_url}" />
+		<link rel="apple-touch-icon" href="${apple_touch_icon_url}" />
+        
+        <!-- JQUERY UI --> 
+        <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css" />
+        
+        <!-- BOOTSTRAP e FONT AWESOME -->
+        <spring:url value="/resources/assets/css/bootstrap.css" var="bootstrap_css_url" />
+        <spring:url value="/resources/assets/css/font-awesome.min.css" var="font_awesome_css_url" />
+		<link type="text/css" rel="stylesheet" href="${bootstrap_css_url}" />
+		<link type="text/css" rel="stylesheet" href="${font_awesome_css_url}" />
+        
+        <!-- DEFAULT SKIN VARIATION --> 
+		<spring:url value="/resources/assets/css/default_skin_variation.css" var="default_skin_variation_css_url" />
+		<link type="text/css" rel="stylesheet" href="${default_skin_variation_css_url}" />
+        
+        <!-- ICHECK -->
+		<spring:url value="/resources/assets/css/polaris/polaris.css" var="polaris_css_url" />
+		<link type="text/css" rel="stylesheet" href="${polaris_css_url}" />
+        
+        <!-- HTML5SHIV e RESPOND -->
+		<spring:url value="/resources/assets/js/html5shiv.js" var="html5shiv_js_url" />
+        <spring:url value="/resources/assets/js/respond.min.js" var="respond_js_url" />
+        
+        <!-- ESCLUDO MOMENTANEAMENTE A CAUSA DEL "SIZE"
+        <spring:url value="/resources/assets/apple-touch-icon-57x57.png" var="apple_touch_icon_57x57_url" />
+        <spring:url value="/resources/assets/apple-touch-icon-72x72.png" var="apple_touch_icon_72x72_url" />
+        <spring:url value="/resources/assets/apple-touch-icon-114x114.png" var="apple_touch_icon_114x114_url" />
+        <spring:url value="/resources/assets/apple-touch-icon-144x144.png" var="apple_touch_icon_144x144_url" />
+        <link rel="apple-touch-icon" sizes="57x57" href="${apple_touch_icon_57x57_url}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="${apple_touch_icon_72x72_url}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="${apple_touch_icon_114x114_url}" />
+        <link rel="apple-touch-icon" sizes="144x144" href="${apple_touch_icon_144x144_url}" /> 
+            -->
+            
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<![CDATA[<!--[if lt IE 9]>]]>
+		    <script type="text/javascript" src="${html5shiv_js_url}"><c:out value=""></c:out></script>
+		    <script type="text/javascript" src="${respond_js_url}"><c:out value=""></c:out></script>
+		<![CDATA[<![endif]-->]]>
+		
+		<!-- Get the user locale from the page context (it was set by Spring MVC's locale resolver) -->
+		<c:set var="userLocale">
+			<c:set var="plocale">${pageContext.response.locale}</c:set>
+			<c:out value="${fn:replace(plocale, '_', '-')}" default="en" />
+		</c:set>
+		
+		<title>${pageTitle}</title>
+	</head>
+
+	<body>
+	
+		<tiles:insertAttribute name="header" ignore="true" />
+		<tiles:insertAttribute name="searchsemantic" ignore="true" />
+			
+		<div id="content-main">
+			<div class="container-fluid">
+                
+				<tiles:insertAttribute name="breadcrumb" ignore="true" />
+				<tiles:insertAttribute name="body" />
+			</div>
+		</div>
+		<tiles:insertAttribute name="footer" ignore="true" />
+	
+        <!-- JQUERY LIB -->
+		<spring:url value="/resources/assets/js/jquery-1.11.1.min.js" var="jquery_url" />
+		<script type="text/javascript" src="${jquery_url}"><c:out value=""></c:out></script>
+		
+        <!-- JQUERY UI -->
+		<spring:url value="/resources/assets/js/jquery-ui.min.js" var="jquery_ui_url" />
+		<script type="text/javascript" src="${jquery_ui_url}"><c:out value=""></c:out></script>
+		
+        <!-- ICHECK -->
+		<spring:url value="/resources/assets/js/icheck.js" var="jquery_icheck_url" />
+		<script type="text/javascript" src="${jquery_icheck_url}"><c:out value=""></c:out></script>
+        <!-- JQUERY CALLS -->
+		<spring:url value="/resources/assets/js/jquery.calls.js" var="jquery_calls_url" />
+        <script type="text/javascript" src="${jquery_calls_url}"><c:out value=""></c:out></script>
+        <!-- JQUERY CAROUSEL -->
+		<spring:url value="/resources/assets/js/sky-carousel.js" var="jquery_skycarousel_url" />
+	    <script type="text/javascript" src="${jquery_skycarousel_url}"><c:out value=""></c:out></script>
+        
+	</body>
+</html>
+	
+</jsp:root>

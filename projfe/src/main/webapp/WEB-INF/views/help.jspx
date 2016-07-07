@@ -1,0 +1,268 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+	<div class="row">
+		<div class="col-md-12">
+
+			<h1 class="mrg-t-0">
+				<strong>Help</strong>
+			</h1>
+			<hr />
+			<div class="text-justify fs-16">
+				<p>
+					BDL fornisce l'accesso a tutti i tipi di media: <strong>stampa</strong>
+					(libri, periodici e stampa) in immagine e testo, <strong>manoscritti</strong>,
+					<strong>registrazioni sonore</strong>, <strong>materiali
+						grafici</strong> in modalit&#224; mappe.
+				</p>
+				<p>
+					BDL d&#224; accesso alle collezioni digitalizzate tramite
+					supervisione e contributo da parte di <strong>Regione
+						Lombardia</strong>.
+				</p>
+			</div>
+			<br />
+
+			<h3>Indice</h3>
+			<ul class="list-group fs-16">
+				<li class="list-group-item"><a href="#ricerca_semplice"><span
+						class="fa fa-search well-sm"><jsp:text /></span> <strong><em>Ricerca
+								semplice</em></strong></a></li>
+				<li class="list-group-item"><a href="#ricerca_avanzata"><span
+						class="fa fa-search-plus well-sm"><jsp:text /></span> <strong><em>Ricerca
+								avanzata</em></strong></a></li>
+				<li class="list-group-item"><a href="#risultati_ricerca"><span
+						class="fa fa-list-ol well-sm"><jsp:text /></span> <strong><em>Risultati
+								della ricerca</em></strong></a></li>
+				<li class="list-group-item"><a href="#vis_ogg_digitale"><span
+						class="fa fa-cube well-sm"><jsp:text /></span> <strong><em>Visualizzazione
+								oggetto digitale</em></strong></a></li>
+			</ul>
+			<br />
+
+			<h3 id="ricerca_semplice">
+				<span class="fa fa-search pull-right"><jsp:text /></span>Ricerca
+				semplice
+			</h3>
+			<hr />
+			<div class="text-justify fs-16">
+				<p>La ricerca semplice &#232; direttamente accessibile nella
+					parte superiore di tutte le pagine.</p>
+				<p>
+					Nel campo previsto si inseriscono una o pi&#249; parole, senza
+					digitare caratteri accentati o speciali, e si clicca su OK. La
+					ricerca sar&#232; effettuata nei seguenti elementi: <strong>titolo</strong>,
+					<strong>autore</strong> e <strong>soggetto</strong>.
+				</p>
+				<p>Il motore di ricerca selezioner&#232; i documenti che
+					contengono tutte le parole inserite: pi&#249; parole saranno state
+					immesse, minore sar&#232; il numero di documenti ottenuti nella
+					lista. </p>
+				<p>Per ricercare documenti contenenti una frase esatta (tutte le
+					parole contigue fra loro e nello stesso ordine), &#232; necessario
+					inserire tale frase racchiusa tra virgolette.</p>
+				<p>La ricerca attraverso parola pu&#242; essere applicata a
+					tutte tipologie di dati (testo a stampa, manoscritti, archivi,
+					...), come proposto di default, oppure pu&#242; essere limitata a
+					una determinata tipologia di dati, selezionandola tramite
+					l’apposita tab.</p>
+			</div>
+			<br />
+
+			<h3 id="ricerca_avanzata">
+				<span class="fa fa-search-plus pull-right"><jsp:text /></span>Ricerca
+				avanzata
+			</h3>
+			<hr />
+			<div class="text-justify fs-16">
+
+				<p>Si accede cliccando sul link "Ricerca avanzata" presente
+					nella parte superiore di ogni pagina, accanto alla finestra di
+					ricerca; si inseriscono una o pi&#249; parole per effettuare una
+					ricerca attraverso uno o pi&#249; dei seguenti canali:</p>
+				<ul>
+					<li><em>titolo</em>;</li>
+					<li><em>autore</em>;</li>
+					<li><em>soggetto</em>;</li>
+					<li><em>tipo documento</em>: testo a stampa, manoscritto,
+						archivio, ...;</li>
+					<li><em>lingua della pubblicazione</em>;</li>
+					<li><em>data</em> (oltre alla ricerca puntuale, &#232;
+						possibile inserire una ricerca per periodo: secolo, range di
+						date);</li>
+					<li><em>editore</em>;</li>
+					<li><em>natura della pubblicazione</em>: monografia,
+						periodico, ...;</li>
+					<li><em>istituto</em> (ricerca tramite una o pi&#249; parole).</li>
+				</ul>
+				<br />
+				<p>Per aggiungere ulteriori termini di ricerca, si clicca sul
+					pulsante “+”: sar&#224; presentata una nuova riga utile
+					all’inserimento dell’ulteriore canale di ricerca.</p>
+				<p>Per ricercare documenti contenenti una frase esatta (tutte le
+					parole contigue fra loro e nello stesso ordine), &#232; necessario
+					inserire tale frase racchiusa tra virgolette.</p>
+				<br />
+				<p>All’interno di un medesimo canale di ricerca, il sistema
+					&#232; impostato in modo tale da prendere in considerazione tutte
+					le parole inserite come parametri (ci&#242; corrisponde
+					all'operatore logico "AND").Di conseguenza il risultato
+					presenter&#224; record che contengono contemporaneamente tutte le
+					parole, indipendentemente dal loro ordine e dalla vicinanza. </p>
+				<p>E’ possibile impostare una ricerca con il criterio di "Almeno
+					una delle parole" (ci&#242; corrisponde all'operatore logico "OR").
+					In questo caso il risultato presenter&#224; record che contengono
+					almeno una delle parole che costituiscono il termine di ricerca.</p>
+				<p>Gli operatori logici possono essere utilizzati anche fra i
+					diversi canali di ricerca offerti (titolo, autore, soggetto, ...):</p>
+				<ul>
+					<li><em>AND</em>: tutti i criteri sono necessari e devono
+						apparire nei risultati;</li>
+					<li><em>OR</em>: tutti i criteri sono presi in considerazione,
+						ma &#232; sufficiente che uno dei criteri cercato siapresente; </li>
+					<li><em>AND NOT</em>: il criterio preceduto da AND NOT
+						escludecanale e termine di ricerca cui l’operatore &#232;
+						anteposto.</li>
+				</ul>
+				<br />
+				<p>La seconda parte dei parametri consentono di filtrare
+					ulteriormente la ricerca:</p>
+				<ul>
+					<li>Per <em>data</em>: tutti i documenti pubblicati in una
+						certa data, in un range di date, in un secolo, in circa la data;
+					</li>
+					<li>Per le <em>lingue</em>: &#232; possibile selezionare una o
+						pi&#249; lingue per accedere ai documenti in una lingua
+						selezionata (OR tra i valori);
+					</li>
+					<li>Per <em>soggetti</em>: &#232; possibile selezionare uno o
+						pi&#249; soggetti: i risultati appartengono ad almeno uno degli
+						argomenti selezionati (OR tra i valori);
+					</li>
+					<li>Per i <em>tipi di documenti</em>;
+					</li>
+					<li>Per <em>natura</em>;
+					</li>
+					<li>Per <em>specificit&#224; materiale grafico</em>/<em>supporto</em>/<em>tecnica</em>:
+						i risultati appartengono agli argomenti selezionati;
+					</li>
+					<li>Per <em>collezione</em> (scelta multipla).
+					</li>
+				</ul>
+				<br />
+				<p>Questi filtri vengono applicati utilizzando AND (in modo
+					implicito) ai precedenti criteri di ricerca e tra i filtri
+					impostati. Ad esempio, &#232; possibile selezionare sia un tipo di
+					documento, intervallo di date, e un soggetto e tutti concorreranno
+					alla definizione dei filtri di ricerca.</p>
+				<p>La ricerca avanzata conserva i dati inseriti in memoria;
+					ci&#242; consente di riformulare una ricerca senza dover digitare i
+					criteri/filtri precedenti di nuovo. Quando si vuole ricominciare
+					con una nuova ricerca &#232; possibile utilizzare il pulsante
+					“Cancella Selezione” che ripristina il modulo vuoto.</p>
+			</div>
+			<br />
+
+			<h3 id="risultati_ricerca">
+				<span class="fa fa-list-ol pull-right"><jsp:text /></span>Risultati
+				della ricerca
+			</h3>
+			<hr />
+			<div class="text-justify fs-16">
+				<p>La lista dei risultati pu&#242; essere visualizzata come solo
+					elenco di titoli oppure come anteprima (elenca i titoli completi di
+					autore, &#232; possibile passare direttamente alla visualizzazione
+					della scheda oppure alla visualizzazione dell’oggetto digitale).</p>
+				<p>I risultati sono ordinati per rilevanza, il tasso di
+					accuratezza &#232; calcolato dal motore di ricerca. I risultati
+					possono essere ordinati per ordine alfabetico
+					(discendente-ascendente) e data di pubblicazione.  </p>
+				<p>Ci sono 15 risultati per pagina per impostazione predefinita.
+					&#200; possibile modificarli tramite una dropdownlist all’interno
+					della pagina.</p>
+				<p>Gli strumenti di navigazione nei risultati sono in cima e in
+					fondo alla pagina dei risultati, nel mezzo.</p>
+			</div>
+			<br />
+
+			<h3 id="vis_ogg_digitale">
+				<span class="fa fa-cube pull-right"><jsp:text /></span>Visualizzazione
+				oggetto digitale
+			</h3>
+			<hr />
+			<div class="text-justify fs-16">
+				<p>Sono disponibili due formati di visualizzazione dell’oggetto
+					digitale che si aprono automaticamente a seconda del tipo
+					documento:</p>
+				<ul>
+					<li>per i tipi documento cartografia a stampa, cartografia
+						manoscritta, materiale grafico verr&#224; utilizzato il <strong>mapviewer</strong>;
+					</li>
+					<li>per tutti gli altri tipi documenti si utilizzer&#224; il <strong>bookreader</strong>.
+					</li>
+				</ul>
+				<br />
+			</div>
+			<br />
+			<ul class="list-unstyled fs-16">
+				<li class="text-justify well">
+					<p class="fs-13">
+						<span class="fa fa-picture-o well-sm"><jsp:text /></span> <strong><em>MAP
+								VIEWER</em></strong>
+					</p>
+					<p>La mappa, in fase di inserimento scompattata in pi&#249;
+						tiles, viene ricostruita in fase di presentazione; &#232;
+						possibile navigare nella mappa tramite trascinamento del mouse,
+						oppure tramite gli appositi pulsanti posti in alto a sinistra.</p>
+					<p>Inoltre tramite la rotella del mouse &#232; possibile
+						zoomare pi&#249; o meno la mappa; la funzione di zoom &#232;
+						presente anche nella parte in alto a sinistra della finestra.</p>
+				</li>
+				<li class="text-justify well">
+					<p class="fs-13">
+						<span class="fa fa-book well-sm"><jsp:text /></span> <strong><em>BOOK
+								READER</em></strong>
+					</p>
+					<p>La gestione della visualizzazione e della navigazione del
+						documento &#232; costituita dalle tre barre a scomparsa del
+						viewer.</p>
+					<p>La prima barra a sinistra gestisce la navigazione per indice
+						: &#232; possibile navigare attraverso l’indice aprendo i nodi
+						dello stesso; cliccando su titolo di indice il documento si
+						posizioner&#224; sulla pagina dell’indice.</p>
+					<p>La seconda barra inferiore gestisce la navigazione e lo
+						zoom; sono previste:</p>
+					<ul>
+						<li><em>Barra di navigazione</em>: &#232; possibile spostare
+							l’indicatore e fermarsi alla pagina desiderata;</li>
+						<li><em>Modalit&#224; visualizzazione a una pagina</em>;</li>
+						<li><em>Modalit&#224; visualizzazione a due pagine</em>;</li>
+						<li><em>Modalit&#224; di visualizzazione multi pagina</em>;</li>
+						<li><em>Modalit&#224; anteprima</em>: in modalit&#224;
+							visualizzazione due pagine si dovr&#224; scegliere la pagina
+							oggetto dell’anteprima; verr&#224; quindi aperta una finestra su
+							cui sar&#224; possibile, attraverso la rotella del mouse,
+							aumentare lo zoom sulla pagina; inoltre &#232; possibile navigare
+							la pagina tramite trascinamento del mouse;</li>
+						<li><em>Zoom + su pagina</em>;</li>
+						<li><em>Zoom - su pagina</em>;</li>
+						<li><em>Pagina indietro</em>;</li>
+						<li><em>Pagina avanti</em>.</li>
+					</ul>
+					<br />
+					<p>La terza barra superiore consente il download del file
+						completo PDF dell’oggetto digitale e la ricerca testuale di parole
+						all’interno del documento ottenuto per il riconoscimento ottico
+						dei caratteri (OCR). Questa opzione &#232; limitata alla presenza
+						o meno di riconoscimento ottico dei caratteri all’interno delle
+						immagini.</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+</jsp:root>

@@ -1,0 +1,251 @@
+
+#BookReader , #BRtoolbar , #BRreturn{
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+#BRcontainer {
+	background-color: #EEEEEE;
+}
+
+#BRtoolbar{
+	background-color: #FFFFFF;
+	color:#003354;
+	font-weight:bold;
+	border-bottom:2px solid #348D45;
+}
+#BRtoolbar .logo{
+	background: url("./logo-rl.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	width:205px;
+	
+}
+#BRreturn A{
+	cursor:default;
+	text-decoration:none;
+}
+
+#BRtoolbar .embed, 
+#BRtoolbar .print, 
+#BRtoolbar .play , 
+#BRtoolbar .info ,
+#BRtoolbar .share ,
+#BRtoolbar .read {
+    display: none;
+}
+div#BRpage{
+	width:360px;
+}
+div#BRnavpos {
+    margin-right: 360px;
+}
+
+#BRpageview {
+	background-color: #EEEEEE;
+}
+
+#BRnav, .BRnavCntl {
+	background-color:#348D45!important;
+}
+
+div#pagenum {
+    background-color: #003354;
+    color: #FFFFFF;
+    font-family: "Trebuchet MS", Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+}
+div#pagenum span{
+    color: #FFFFFF;
+}
+
+.BRicon {
+    background-image: url(./BDLicons.png);
+}
+.BRicon.magnify {background-position:-1240px 0;}
+.BRicon.magnify:hover {background-position:-1280px 0;}
+
+.BRicon.pdf {background-position:-120px 0; background-color:#348D45}
+.BRicon.pdf:hover {background-position:-160px 0;}
+
+.BRnavend {
+	background-color:#FFFFFF;
+}
+
+div#BRnavline{
+	background-color:#FFFFFF;
+}
+
+#BRpager .ui-slider-handle {
+    background: url("./slider.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.BRdn {
+    background-image: url("./nav_control-dn.png");
+}
+.BRup {
+    background-image: url("./nav_control-up.png");
+}
+div.search{
+	background-image: url("./marker_srch-off.png");
+}
+form#booksearch button {
+    background-color: #003354;
+}
+
+.BDLleft{
+    background-image: url("./nav_control-left.png");
+	background-repeat:no-repeat;
+}
+.BDLright {
+    background-image: url("./nav_control-right.png");
+	background-repeat:no-repeat;
+}
+#BDLtocContent{
+	width:190px;
+	height:70%;
+	background-color:white;
+	top:42px;
+	left:0px;
+	position:absolute;
+	z-index:200;
+	border-right:2px solid #348D45;
+	border-bottom:2px solid #348D45;
+	overflow:auto;
+	padding:2px;
+}
+#BDLnavCntlLeft{
+	width:24px;
+	height:26px;
+	background-color:#348D45;
+	top:42px;
+	left:194px;
+	position:absolute;
+	z-index:250;
+	cursor:pointer;
+}
+
+.magnifyPageSelect {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #000000;
+    color: #000000;
+    float: left;
+    font-size: 14px;
+    height: 64px;
+    padding: 10px;
+    text-decoration: none;
+    width: 34px;
+}
+.magnifyPageSelect:hover{
+    background: none repeat scroll 0 0 #348D45;
+}
+
+
+#magnifyLightbox {
+    position:fixed; /* keeps the lightbox window in the current viewport */
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:url(magnifyoverlay.png) repeat;
+    opacity: .7;
+    text-align:center;
+    display: none;
+    background-color: #000;
+    z-index:2001;
+}  
+  
+#magnifyContainer {
+    /* remove these if going with transparent png and nesting inside lightbox */
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    margin: 0 0 0 -47%; 
+    
+    width: 80%;
+    height: 80%;
+    min-height: 300px;
+    
+    margin-top:30px; /*centers the div horizontally in all browsers (except IE)*/
+
+    background-color: #ccc;
+    text-align:left; /*resets text alignment from body tag */
+    border:1px solid #ccc;
+    border-top:none;
+    padding:25px;
+    border-radius:5px 5px 5px 5px;
+    -moz-border-radius:5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
+    z-index:2002;
+}
+
+#magnifyContainerFooter {
+	padding: 14px 15px 15px;
+	margin-bottom: 20px;
+	text-align: right;
+	border-radius: 0px 0px 5px 5px;
+	-moz-border-radius: 0px 0px 5px 5px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+
+	background-color: #ccc;
+	margin-left: -26px;
+	margin-right: -26px;
+}
+
+
+#magnifyContainer .btn {
+	display: inline-block;
+	margin-bottom: 0;
+	font-weight: 400;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	background-image: none;
+	border: 1px solid transparent;
+	white-space: nowrap;
+	padding: 6px 12px;
+	font-size: 14px;
+	line-height: 1.42857143;
+	border-radius: 4px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index:5000;
+}
+
+#magnifyContainer .btn-default {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+
+#magnifyContainer .btn-default:hover{
+	color: #333333;
+	background-color: #ebebeb;
+	border-color: #adadad;
+}
+
+#magnifyContainer .close {
+	float: right;
+	font-size: 15px;
+	padding: 3px 6px;
+	font-weight: 700;
+	line-height: 1;
+	margin-top:-10px;
+	margin-right:-10px;
+}
+
+.downloadPdfPageSelect {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #000000;
+    color: #000000;
+    float: left;
+    font-size: 12px;
+    height: 64px;
+    padding: 10px;
+    text-decoration: none;
+    width: 52px;
+}
+.downloadPdfPageSelect:hover{
+    background: none repeat scroll 0 0 #348D45;
+}

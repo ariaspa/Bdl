@@ -1,0 +1,45 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+<div id="footer" class="hidden-print">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="footer-copyright">
+                    <p>&#169; Copyright Regione Lombardia - tutti i diritti riservati</p>
+                </div>
+                <ul class="footer-menu">
+                    <li>
+						<a href="http://www.regione.lombardia.it/cs/Satellite?c=Page&amp;childpagename=HomeSPRL%2FRegioneDettaglio&amp;cid=1194454760302&amp;pagename=HMSPRLWrapper"
+							title="[Apre una nuova pagina] Privacy"
+							class="targetblank">Privacy</a></li>
+                    <li>
+                        <a href="http://www.regione.lombardia.it/cs/Satellite?c=Page&amp;childpagename=HomeSPRL%2FRegioneDettaglio&amp;cid=1194454760315&amp;pagename=HMSPRLWrapper"
+                            title="[Apre una nuova pagina] Note legali"
+                            class="targetblank">Note legali</a></li>
+                    <li>
+                        <a href="http://www.regione.lombardia.it/cs/Satellite?childpagename=HomeSPRL%2FRegioneDettaglio&amp;c=Page&amp;p=1213678154374&amp;pagename=HMSPRLWrapper&amp;rendermode=previewnoinsite&amp;cid=1213678154374"
+                            title="[Apre una nuova pagina] Social Media Policy"
+                            class="targetblank">Social Media Policy</a></li>
+                    <li>
+                        <a href="mailto:assistenza-bdl@lispa.it"
+                            title="[Apre una nuova pagina] Contatti">Contatti</a></li>
+                    <li>
+                        <a href="http://www.regione.lombardia.it/cs/Satellite?c=Redazionale_P&amp;childpagename=Regione%2FDetail&amp;cid=1213637220297&amp;pagename=RGNWrapper"
+                            title="[Apre una nuova pagina] E015-Digital Economy"
+                            class="targetblank">E015-Digital Economy</a></li>
+                    <li><spring:url value="/help" 
+                                  var="linkToHelp" />
+                        <a href="${linkToHelp}"
+                            title="[Apre una nuova pagina] Help">Help</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+	
+</jsp:root>

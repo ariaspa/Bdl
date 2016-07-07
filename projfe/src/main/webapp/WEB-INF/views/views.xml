@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration
+2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+	
+<tiles-definitions>
+	<definition extends="default" name="home">
+		<put-attribute name="body" value="/WEB-INF/views/home.jspx" />
+	</definition>
+	<definition extends="default" name="collection">
+		<put-attribute name="body" value="/WEB-INF/views/collection.jspx" />
+	</definition>
+	<definition extends="default" name="item">
+		<put-attribute name="body" value="/WEB-INF/views/item.jspx" />
+	</definition>
+	<definition extends="default" name="itemsview">
+		<put-attribute name="body" value="/WEB-INF/views/items.jspx" />
+	</definition>
+	<definition extends="default" name="search">
+		<put-attribute name="body" value="/WEB-INF/views/search.jspx" />
+	</definition>
+    <definition extends="default" name="help">
+        <put-attribute name="body" value="/WEB-INF/views/help.jspx" />
+    </definition>
+    <definition extends="default" name="institute">
+        <put-attribute name="body" value="/WEB-INF/views/institute.jspx" />
+    </definition>
+</tiles-definitions>

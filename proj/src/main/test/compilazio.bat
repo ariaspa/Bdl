@@ -1,0 +1,3 @@
+
+"C:\Program Files\Java\jdk1.7.0_10\bin\javac" -cp "C:\Users\cox\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\sencha\workspace\lispa_bdl\progesi\librerie-mvn\yaz4j-5.0.10.jar;C:\sencha\workspace\lispa_bdl\progesi\librerie-mvn\marc4j-2.6-SNAPSHOT.jar;C:\sencha\workspace\lispa_bdl\proj\target\classes" it/lispa/bdl/Test.java
+"C:\Program Files\Java\jdk1.7.0_10\bin\java" -cp ".;C:\Users\cox\.m2\repository\log4j\log4j\1.2.17\log4j-1.2.17.jar;C:\sencha\workspace\lispa_bdl\progesi\librerie-mvn\yaz4j-5.0.10.jar;C:\sencha\workspace\lispa_bdl\progesi\librerie-mvn\marc4j-2.6-SNAPSHOT.jar;C:\sencha\workspace\lispa_bdl\proj\target\classes" it.lispa.bdl.Test

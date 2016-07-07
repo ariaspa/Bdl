@@ -1,0 +1,50 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+	<spring:url value="/search" var="linkToSearchAdvanced" />
+
+	<div class="sr-only">
+		<a href="#content-main" title="Vai a">Vai al contenuto principale</a>
+	</div>
+	<dl class="menu-list sr-only">
+		<dt>
+			<strong>In questa pagina:</strong>
+		</dt>
+		<dd>
+			<ul>
+                <li><a href="#content-main" accesskey="c" title="Vai al primo contenuto disponibile della pagina">Contenuto principale [c].</a></li>
+                <li><a href="#book-search-form" accesskey="s">Ricerca semantica [s].</a></li>
+                <li><a href="#book-search-advanced-button" accesskey="a">Ricerca avanzata [a].</a></li>
+			</ul>
+		</dd>
+	</dl>
+
+	<div class="navbar navbar-default hidden-print">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-4 logo">
+					<h1 class="navbar-logo-regione">
+					   <c:url value="http://www.regione.lombardia.it" var="linkToRegioneLombardia" />
+					   <a href="${linkToRegioneLombardia}"
+                            title="[Apre una nuova pagina] Regione Lombardia"
+                            class="targetblank">Regione Lombardia</a>
+					</h1>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-9 navbar-title">
+					<strong>Biblioteca Digitale Lombarda</strong>
+				</div>
+				<div class="col-md-3 navbar-numeroverde">
+<!--               <strong>Numero verde <em>800.116.738</em></strong> -->
+                </div>
+			</div>
+		</div>
+	</div>
+
+</jsp:root>

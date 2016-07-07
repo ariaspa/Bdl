@@ -1,0 +1,628 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:joda="http://www.joda.org/joda/time/tags"
+    xmlns:form="http://www.springframework.org/tags/form"
+    xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+    xmlns:spring="http://www.springframework.org/tags"
+    xmlns="http://www.w3.org/1999/xhtml" 
+    version="2.0">
+    
+	<jsp:directive.page import="it.lispa.bdlfe.utils.BdlfeConstants" />
+	<spring:url value="/resources/assets/img/no_thumb.gif" var="logo_no_cover_thumb" />
+	<spring:url value="/resources/assets/img/no_reader.gif" var="logo_no_cover_reader" />
+	
+	<spring:url value="/search/removefilter/" var="removeFilterUrl" />
+	<spring:url value="/search/addfilter/" var="addFilterUrl" />
+	<spring:url value="/search/addtitlefilter/" var="addTitleFilterUrl" />
+	
+	<spring:url value="${changeViewTypeUrl}" var="changeViewTypeUrl" />
+	<spring:url value="${changeOrderByUrl}" var="changeOrderByUrl" />
+	<spring:url value="${changeResPPUrl}" var="changeResPPUrl" />
+	
+    <div class="row">
+        <div class="col-md-3 hidden-print">
+            <div class="filter-list">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Applicazione Filtri</h3>
+                        <!-- 
+                        <p>viewType=${viewType }</p>
+                        <p>viewTypeList=${viewTypeList }</p>
+                        <p>viewTypePreview=${viewTypePreview }</p>
+                        <p>resPP=${resPP }</p>
+                        <p>orderBy=${orderBy }</p>
+                        <p><jsp:text></jsp:text></p>
+                        <p>page=${page }</p>
+                        <p>numPages=${numPages }</p>
+                        <p>resultIdxStart=${resultIdxStart }</p>
+                        <p>resultIdxEnd=${resultIdxEnd }</p>
+                        <p>printStartPage=${printStartPage }</p>
+                        <p>printEndPage=${printEndPage }</p>
+                         -->
+                        
+                    </div>
+                    <div class="panel-body">
+                        <c:choose>
+                            <c:when
+                                test="${
+                                	not empty activeFiltersOnAuthor
+									or not empty activeFiltersOnKind
+									or not empty activeFiltersOnDate
+									or not empty activeFiltersOnLang
+									or not empty activeFiltersOnSubject
+									or not empty activeFiltersOnCollection
+									or not empty activeFiltersOnInstitute
+									or not empty activeFiltersOnTecnique
+									or not empty activeFiltersOnSupport
+									or not empty activeFiltersOnGraphicMaterial
+									or not empty activeFiltersOnPublisher
+									or not empty activeFiltersOnTitle
+									or not empty activeFiltersOnType
+                                }">
+                                <c:if test="${not empty activeFiltersOnAuthor}">
+                                    <p>Autore:
+                                        <c:forEach items="${activeFiltersOnAuthor}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnKind}">
+                                    <p>Natura:
+                                        <c:forEach items="${activeFiltersOnKind}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow" title="Rimuovi filtro">
+                                                <c:forEach items="${filter.comparisonValues}" var="compValues" varStatus="contCompValues">
+                                                    <c:if test="${contCompValues.index ne 0}"> o </c:if><em><c:out value="${compValues.comparisonLabel}" /></em>
+                                                </c:forEach>
+                                                <span class="fa fa-times"><jsp:text /></span>
+                                            </a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnDate}">
+                                    <p>Data:
+                                        <c:forEach items="${activeFiltersOnDate}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnLang}">
+                                    <p>Lingua:
+                                        <c:forEach items="${activeFiltersOnLang}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow" title="Rimuovi filtro">
+                                                <c:forEach items="${filter.comparisonValues}" var="compValues" varStatus="contCompValues">
+                                                    <c:if test="${contCompValues.index ne 0}"> o </c:if><em><c:out value="${compValues.comparisonLabel}" /></em>
+                                                </c:forEach>
+                                                <span class="fa fa-times"><jsp:text /></span>
+                                            </a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnSubject}">
+                                    <p>Soggetto:
+                                        <c:forEach items="${activeFiltersOnSubject}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow" title="Rimuovi filtro">
+                                                <c:forEach items="${filter.comparisonValues}" var="compValues" varStatus="contCompValues">
+                                                    <c:if test="${contCompValues.index ne 0}"> o </c:if><em><c:out value="${compValues.comparisonLabel}" /></em>
+                                                </c:forEach>
+                                                <span class="fa fa-times"><jsp:text /></span>
+                                            </a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnCollection}">
+									<p>Collezione:
+										<c:forEach items="${activeFiltersOnCollection}" var="filter">
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow" title="Rimuovi filtro">
+                                                <c:forEach items="${filter.comparisonValues}" var="compValues" varStatus="contCompValues">
+                                                    <c:if test="${contCompValues.index ne 0}"> o </c:if><em><c:out value="${compValues.comparisonLabel}" /></em>
+                                                </c:forEach>
+                                                <span class="fa fa-times"><jsp:text /></span>
+                                            </a>
+										</c:forEach>
+									</p>
+								</c:if>
+                                <c:if test="${not empty activeFiltersOnInstitute}">
+                                    <p>Istituto:
+                                        <c:forEach items="${activeFiltersOnInstitute}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnTecnique}">
+                                    <p>Tecnica Grafica:
+                                        <c:forEach items="${activeFiltersOnTecnique}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnSupport}">
+                                    <p>Supporto:
+                                        <c:forEach items="${activeFiltersOnSupport}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnGraphicMaterial}">
+                                    <p>Materiale Grafico:
+                                        <c:forEach items="${activeFiltersOnGraphicMaterial}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnPublisher}">
+                                    <p>Editore:
+                                        <c:forEach items="${activeFiltersOnPublisher}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash() }" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnTitle}">
+                                    <p>Titolo:
+                                        <c:forEach items="${activeFiltersOnTitle}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow"  title="Rimuovi filtro">
+                                            <c:out value="${filter.comparisonValues[0].comparisonLabel}" /><span class="fa fa-times"><jsp:text /></span></a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                                <c:if test="${not empty activeFiltersOnType}">
+                                    <p>Tipo:
+                                        <c:forEach items="${activeFiltersOnType}" var="filter" >
+                                            <a href="${removeFilterUrl}${filter.myHash()}" class="label-filter" rel="nofollow" title="Rimuovi filtro">
+                                                <c:forEach items="${filter.comparisonValues}" var="compValues" varStatus="contCompValues">
+                                                    <c:if test="${contCompValues.index ne 0}"> o </c:if><em><c:out value="${compValues.comparisonLabel}" /></em>
+                                                </c:forEach>
+                                                <span class="fa fa-times"><jsp:text /></span>
+                                            </a>
+                                        </c:forEach>
+                                    </p>
+                                </c:if>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="alert alert-warning">
+	                    			<span class="fa fa-exclamation-circle mrg-r-10"><jsp:text /></span><strong><em>Nessun filtro attivo.</em></strong>
+	                			</div>
+                            </c:otherwise>
+                        </c:choose>
+                    </div>
+
+                    <form action="${addTitleFilterUrl}" method="post">
+                        <fieldset id="results-search-form">
+                            <legend class="sr-only">Motore di ricerca</legend>
+                            <div class="input-group">
+                                <label><span class="sr-only">Inserisci una o pi&#249; parole nel seguente campo</span> <input type="text"
+                                    class="form-control" tabindex="13" name="filterTitle" size="20"
+                                    maxlength="255" /> </label> <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit" tabindex="14">
+                                        <span class="fa fa-search"><jsp:text /></span><span class="sr-only">Aggiungi filtro</span>
+                                    </button>
+                                </span>
+                            </div>
+                            <input type="hidden" name="search" value="1" />
+                        </fieldset>
+                    </form>
+                    
+                    <c:choose>
+                        <c:when
+                            test="${not empty otherFiltersOnAuthor or not empty otherFiltersOnKind 
+                                         or not empty otherFiltersOnDate or not empty otherFiltersOnLang or not empty otherFiltersOnSubject 
+                                             or not empty otherFiltersOnCollection or not empty otherFiltersOnInstitute}">
+
+                            <c:if test="${not empty otherFiltersOnAuthor}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Autore</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnAuthor}" var="filter" varStatus="contOnAuthor">
+                                             <c:if test="${contOnAuthor.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                 </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnKind}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Natura</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnKind}" var="filter" varStatus="contOnKind">
+                                             <c:if test="${contOnKind.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                 </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnDate}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Data</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnDate}" var="filter" varStatus="contOnDate">
+                                             <c:if test="${contOnDate.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnLang}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Lingua</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnLang}" var="filter" varStatus="contOnLang">
+                                             <c:if test="${contOnLang.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnSubject}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Soggetto</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnSubject}" var="filter" varStatus="contOnSubject">
+                                             <c:if test="${contOnSubject.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnCollection}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Collezione</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnCollection}" var="filter" varStatus="contOnCollection">
+                                             <c:if test="${contOnCollection.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </c:if>
+                            <c:if test="${not empty otherFiltersOnInstitute}">
+                                <ul class="accordion-panel accordion-panel-advsearch list-group">
+                                    <li class="list-group-item">
+                                        <span class="opening active"><span class="fa pull-right"><jsp:text /></span> Istituto</span>
+                                        <ul class="expanded open list-group">
+                                           <c:forEach items="${otherFiltersOnInstitute}" var="filter" varStatus="contOnInstitute">
+                                             <c:if test="${contOnInstitute.index==otherFiltersNum}">
+                                                <![CDATA[</ul><ul class="expanded list-group">]]>
+                                             </c:if>
+                                               <li class="list-group-item">
+                                                   <span class="badge">${filter.itemNumber}</span>
+                                                   <a href="${addFilterUrl}${filter.myHash() }" rel="nofollow" title="Aggiungi filtro">
+                                                   <c:out value="${filter.comparisonValues[0].comparisonLabel}" /></a>
+                                               </li>
+                                           </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </c:if>
+                        </c:when>
+                        <c:otherwise>
+	                        <div class="panel-body">
+	                            <div class="alert alert-warning">
+	                 			   <span class="fa fa-exclamation-circle mrg-r-10"><jsp:text /></span><strong><em>Nessun filtro disponibile.</em></strong>
+	                 			</div>
+	             			</div>
+                        </c:otherwise>
+                    </c:choose>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <c:choose>
+                <c:when test="${not empty results}">
+
+                    <div class="filter-pagination hidden-print">
+                        <div class="row">
+                            <div class="form-horizontal filter-pagination-form">
+                                <div class="col-xs-12 col-md-3 filter-pagination-results">
+                                    <span class="control-label"><span
+                                        class="badge color-primary">${resCount}</span> <strong> Risultati</strong></span>
+                                </div>
+                                <div class="col-xs-12 col-md-5 text-center">
+                                    <ul class="pagination">
+	                                    <c:if test="${page!=1}">
+	                                    	<spring:url value="${changePageUrls.get(0)}" var="changePageUrl" />
+											<li><a href="${changePageUrl}" title="Vai alla prima pagina">&#171;</a></li>
+                                    	</c:if>
+                                    	<c:forEach var="i" varStatus="pageItr" begin="${printStartPage}" end="${printEndPage}">
+											<spring:url value="${changePageUrls.get(pageItr.count)}" var="changePageUrl" />
+											<c:choose>
+												<c:when test="${page==pageItr.index}">
+													<li class="active"><a href="${changePageUrl}" title="Vai a pagina ${pageItr.index}">${pageItr.index}<span class="sr-only">(pagina corrente)</span></a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a href="${changePageUrl}" title="Vai a pagina ${pageItr.index}">${pageItr.index}</a></li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+	                                    <c:if test="${page!=numPages}">
+											<spring:url value="${changePageUrls.get(changePageUrls.size()-1)}" var="changePageUrl" />
+											<li><a href="${changePageUrl}" title="Vai all'ultima pagina">&#187;</a></li>
+                                    	</c:if>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-12 col-md-4">
+                                    <div class="filter-pagination-numbers">
+                                        <div class="line-result">
+		                                   <form:form class="form-horizontal form-list-sorting" modelAttribute="resPPCommandFormObj" action="${changeResPPUrl}" method="post">
+			                                   <fieldset>
+	                                                <legend class="sr-only">Seleziona il numero di risultati per pagina</legend>
+	                                                <label for="pageNumbers">Risultati per pagina</label>
+												    <form:select path="commandResPPOpt" class="changeResPP select-numbers" id="pageNumbers">
+												    	<form:options items="${resultsPerPageOptions}" />
+												    </form:select>
+												</fieldset>
+		                       				</form:form>
+                                        </div>
+                                        <div class="line-print">
+                                            <a href="javascript:window.print()" class="btn btn-primary btn-block"
+                                                title="stampa risultati">Stampa <span
+                                                class="fa fa-print"><jsp:text /></span></a>
+                                        </div>
+                                        <div class="clearfix"><jsp:text /></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="filter-list">
+
+	                    <div class="row visible-print">
+	                         <div class="col-md-12">
+	                            <p class="text-center">
+	                            <spring:url value="/resources/assets/img/logo-print.png" var="logo_print" />
+	                               <img src="${logo_print}" alt="" /></p>
+	                        </div>
+	                    </div>
+                    
+                        <div class="panel panel-default">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading hidden-print">
+                                <div class="row">
+                                   
+                                        <div class="col-md-6">
+	                                    <form class="form-horizontal form-list-sorting" action="${changeViewTypeUrl}" method="post">
+	                                        <fieldset>
+	                                        <legend class="sr-only">Scegli il tipo di visualizzazione pagina</legend>
+	                                            <label class="control-label" for="viewType">Visualizza come</label>
+					                            <c:choose>
+					                              <c:when test="${viewTypeList==true }">
+													<c:set value="active" var="listClass"></c:set>
+													<c:set value="" var="previewClass"></c:set>
+												  </c:when>
+												  <c:otherwise>
+													<c:set value="" var="listClass"></c:set>
+													<c:set value="active" var="previewClass"></c:set>
+												  </c:otherwise>
+												</c:choose>
+	
+	                                            <a href="#null" class="btn btn-default ${listClass} changeViewTypeList" title="Visualizza lista senza immagini"><span class="fa fa-reorder"><jsp:text /></span></a>
+	                                            <a href="#null" class="btn btn-default ${previewClass} changeViewTypePreview" title="Visualizza lista con immagini"><span class="fa fa-th-list"><jsp:text /></span></a>
+	                                            <input type="hidden" name="viewType" class="changeViewType" id="viewType" />
+	                                        </fieldset>
+	                                    </form>
+                                        </div>
+									    <div class="col-md-6">
+		                                    <form:form class="form-horizontal form-list-sorting" modelAttribute="orderCommandFormObj" action="${changeOrderByUrl}" method="post">
+		                                            <div class="form-group mrg-b-0">
+		                                                <label class="col-sm-7 control-label text-right" for="orderBy">Ordinato per</label>
+		                                                <div class="col-sm-5">
+		                                                	    <form:select path="commandOrdOpt" class="changeOrderBy form-control" id="orderBy">
+											                      <form:options items="${orderOptions}" />
+											                    </form:select>
+		                                                </div>
+		                                            </div>
+		                       				</form:form>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="filter-list-results-container">
+                              <c:choose>
+									<c:when test="${viewTypeList}">
+										<ol class="filter-list-results">
+											<c:forEach items="${results}" var="item" varStatus="contResults">
+												<c:if test="${not empty item}">
+													<spring:url value="/item/${item.id}" var="linkToItem" />
+													<li>
+														<h3 class="fs-11">
+															<a href="${linkToItem}" class="item"
+																title="Vai al dettaglio di: ${fn:escapeXml(item.title)}">
+																
+																<span class="nroItem"><c:out value="${contResults.count+resultIdxStart}" /></span>
+																
+																<strong><c:out value="${item.title}" /></strong> <em><c:if
+																	test="${not empty fn:escapeXml(item.authors[0].name)}"> di <c:out
+																		value="${item.authors[0].name}" />
+																	<c:if
+																		test="${not empty fn:escapeXml(item.authors[1].name)}">, <c:out
+																			value="${item.authors[1].name}" />
+																	</c:if>
+																</c:if> <c:if
+																		test="${not empty fn:escapeXml(item.publisher.name)}">; editore <c:out
+																			value="${item.publisher.name}" />
+																		<c:if test="${not empty fn:escapeXml(item.place)}">(<c:out
+																				value="${item.place}" />)</c:if>
+																	</c:if> <c:if test="${not empty fn:escapeXml(item.date)}">, anno <c:out
+																			value="${item.date}" />
+																	</c:if></em>
+															</a>
+														</h3></li>
+												</c:if>
+											</c:forEach>
+										</ol>
+									</c:when>
+									<c:otherwise>
+                                
+                                <ol class="filter-list-results">
+									<c:forEach items="${results}" var="item" varStatus="contResults">
+											<li class="item">
+												<span class="nroItem"><c:out value="${contResults.count+resultIdxStart}" /></span>
+											    <div class="row">
+											        <div class="col-xs-4 col-lg-2"> <c:choose>
+																<c:when
+																	test="${not empty item.getDefaultImageThumbUrl(backendPublicUrl)}">
+																	<img src="${item.getDefaultImageThumbUrl(backendPublicUrl)}"
+																		alt="Copertina dell'oggetto digitale" class="img-full" />
+																</c:when>
+																<c:otherwise>
+																	<img src="${logo_no_cover_thumb}"
+																		alt="Copertina dell'oggetto digitale" class="img-full" />
+																</c:otherwise>
+															</c:choose>
+													</div>
+													<div class="col-xs-8 col-lg-10"> <strong><c:out
+																	value="${item.title}" /></strong> <em><c:if
+																	test="${not empty fn:escapeXml(item.authors[0].name)}"> di <c:out
+																		value="${item.authors[0].name}" />
+																	<c:if
+																		test="${not empty fn:escapeXml(item.authors[1].name)}">, <c:out
+																			value="${item.authors[1].name}" />
+																	</c:if>
+																</c:if> <c:if
+																	test="${not empty fn:escapeXml(item.publisher.name)}"> ; editore <c:out
+																		value="${item.publisher.name}" />
+																	<c:if test="${not empty fn:escapeXml(item.place)}">(<c:out
+																			value="${item.place}" />)</c:if>
+																</c:if> <c:if test="${not empty fn:escapeXml(item.date)}">, anno <c:out
+																		value="${item.date}" />
+																</c:if></em>
+													</div>
+													
+													<div class="col-xs-12 text-right">
+													
+														<c:if test="${not empty item.id}">
+															<spring:url value="/item/${item.id}" var="linkToItem" />
+															<a href="${linkToItem}" class="btn btn-primary"
+																title="Vai alla scheda dettagliata"><span
+																class="fa fa-file-text-o"><jsp:text /></span> Scheda oggetto
+																digitale </a>
+														</c:if> 
+                                                        <c:if test="${not empty item.getDigitalReaderUrl(audioplayerUrl, mapreaderUrl, bookreaderUrl)}">
+                                                            <spring:url value="${item.getDigitalReaderUrl(audioplayerUrl, mapreaderUrl, bookreaderUrl)}"
+                                                                var="linkToDigitalReader" />
+										                    <c:choose>
+										                        <c:when test="${item.digitalReader eq 'audio'}">
+										                            <a href="${linkToDigitalReader}"
+										                               title="[Apre un popup]"
+										                               class="${item.digitalReader}Link btn btn-primary">Visualizza oggetto
+										                                digitale <span class="fa fa-cube"><jsp:text /></span></a>
+										                        </c:when>
+										                        <c:otherwise>
+                           		 									<c:if test="${item.kind ne 'Periodico'}">
+                           		 										<a href="${linkToDigitalReader}"
+											                                class="${item.digitalReader}Link btn btn-primary targetblank"
+											                                title="[Apre una nuova pagina]">Visualizza oggetto
+											                                 digitale <span class="fa fa-cube"><jsp:text /></span> 
+										                            	</a>
+                           		 									</c:if>
+										                        </c:otherwise>
+										                    </c:choose>
+                                                        </c:if>
+                                                        
+											        </div>
+											    </div>
+											</li>
+
+									</c:forEach>
+								</ol>
+								</c:otherwise>
+                              </c:choose>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="filter-pagination hidden-print">
+                        <div class="row">
+                            <div class="form-horizontal filter-pagination-form">
+                                <div class="col-xs-12 col-md-3 filter-pagination-results"><jsp:text /></div>
+                                <div class="col-xs-12 col-md-5 text-center">
+                                    <ul class="pagination">
+	                                    <c:if test="${page!=1}">
+	                                    	<spring:url value="${changePageUrls.get(0)}" var="changePageUrl" />
+											<li><a href="${changePageUrl}" title="Vai alla prima pagina">&#171;</a></li>
+                                    	</c:if>
+                                    	<c:forEach var="i" varStatus="pageItr" begin="${printStartPage}" end="${printEndPage}">
+											<spring:url value="${changePageUrls.get(pageItr.count)}" var="changePageUrl" />
+											<c:choose>
+												<c:when test="${page==pageItr.index}">
+													<li class="active"><a href="${changePageUrl}" title="Vai a pagina ${pageItr.index}">${pageItr.index}<span class="sr-only">(pagina corrente)</span></a></li>
+												</c:when>
+												<c:otherwise>
+													<li><a href="${changePageUrl}" title="Vai a pagina ${pageItr.index}">${pageItr.index}</a></li>
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
+	                                    <c:if test="${page!=numPages}">
+											<spring:url value="${changePageUrls.get(changePageUrls.size()-1)}" var="changePageUrl" />
+											<li><a href="${changePageUrl}" title="Vai all'ultima pagina">&#187;</a></li>
+                                    	</c:if>
+                                    </ul>
+                                </div>
+                                <div class="col-xs-12 col-md-4"><jsp:text /></div>
+                            </div>
+                        </div>
+                    </div>
+                </c:when>
+                <c:otherwise>
+                    <h3 class="text-center"><strong><em>Nessun risultato di ricerca.</em></strong></h3>
+                </c:otherwise>
+            </c:choose>
+
+        </div>
+    </div>
+</jsp:root>

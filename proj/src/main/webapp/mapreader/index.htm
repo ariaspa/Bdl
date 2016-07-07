@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./leaflet-0.7.3/leaflet.css" />
+    <link rel="stylesheet" href="./Leaflet.zoomslider-0.6.1/src/L.Control.Zoomslider.css" />
+    <!--[if lte IE 8]>
+        <link rel="stylesheet" href="./Leaflet.zoomslider-0.6.1/src/L.Control.Zoomslider.ie.css" />
+    <![endif]-->
+    <link rel="stylesheet" href="./Leaflet.Pancontrol-0.4.5/src/L.Control.Pan.css" />
+    <!--[if lt IE 9]>
+     <link rel="stylesheet" href="./Leaflet.Pancontrol-0.4.5/src/L.Control.Pan.ie.css"/>
+    <![endif]-->
+
+    <script type="text/javascript" src="./jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="./leaflet-0.7.3/leaflet.js"></script>
+    <script type="text/javascript" src="./Leaflet.zoomslider-0.6.1/src/L.Control.Zoomslider.js" ></script>
+    <script type="text/javascript" src="./Leaflet.Pancontrol-0.4.5/src/L.Control.Pan.js" ></script>   
+	
+	<style>
+        body {
+            padding: 0;
+            margin: 0;
+        }
+        html, body, #map {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+<script type="text/javascript">
+
+
+function GetURLParameter(sParam){
+	var sPageURL = window.location.search.substring(1);
+	sPageURL = sPageURL.replace('&amp;','&');
+	sPageURL = sPageURL.replace('&#38;','&');
+	var sURLVariables = sPageURL.split('&');
+	for (var i = 0; i < sURLVariables.length; i++) 
+	{
+		var sParameterName = sURLVariables[i].split('=');
+		if (sParameterName[0] == sParam) 
+		{
+			return sParameterName[1];
+		}
+	}
+}
+
+$(document).ready(function(){
+    
+    var BDL_SERVICE_PATH = "private";
+    if(GetURLParameter('path')=="fe") {
+        BDL_SERVICE_PATH = "public";
+    } else if(GetURLParameter('path')=="be") {
+        BDL_SERVICE_PATH = "private";
+    }
+    
+	$.getJSON("../"+BDL_SERVICE_PATH+"/rest/json/item/"+GetURLParameter('cdOggetto')+"/mapreader", function( data ) {
+		
+		// alert("data.maxZoomH="+data.maxZoomH+" --- data.maxZoomW="+data.maxZoomW+" --- data.borderW="+data.borderW+" --- data.borderH="+data.borderH+" --- data.minZoomLevel="+data.minZoomLevel+" --- data.maxZoomLevel="+data.maxZoomLevel);
+		
+		var map = L.map('map',{
+		  maxZoom: data.maxZoomLevel,
+		  minZoom: data.minZoomLevel,
+	      crs: L.CRS.Simple
+		});
+		
+		if(data.maxZoomW > data.maxZoomH) {
+			// larghezza > altezza
+			var southWest = map.unproject([data.borderW, data.maxZoomH], map.getMaxZoom());
+			var northEast = map.unproject([data.maxZoomW-data.borderW,0], map.getMaxZoom());
+			map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+		} else {
+			// altezza > larghezza
+			var southWest = map.unproject([0,data.maxZoomH-data.borderH], map.getMaxZoom());
+			var northEast = map.unproject([data.maxZoomW,data.borderH], map.getMaxZoom());
+			map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+		}
+		
+		map.setView([0, 0], data.minZoomLevel);
+		
+		L.tileLayer("../"+BDL_SERVICE_PATH+"/rest/srv/item/"+GetURLParameter('cdOggetto')+"/images/map/{z}/{x}/{y}", {
+		  attribution: 'La Bibilioteca Digitale Lombarda &copy; Regione Lombardia',
+		}).addTo(map);
+	});
+});
+
+	
+</script>
+
+</body>
+</html> 

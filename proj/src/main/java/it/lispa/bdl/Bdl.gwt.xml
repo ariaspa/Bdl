@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.5.0//EN"
+  "http://google-web-toolkit.googlecode.com/svn/tags/2.5.0/distro-source/core/src/gwt-module.dtd">
+<module rename-to='bdl'>
+	<!-- Inherit the core Web Toolkit stuff. -->
+	<inherits name='com.google.gwt.user.User' />
+	<inherits name="com.google.gwt.i18n.I18N" />
+
+	<inherits name="com.google.web.bindery.requestfactory.RequestFactory" />
+	<inherits name="com.google.gwt.inject.Inject" />
+
+	<inherits name='com.google.gwt.resources.Resources' />
+
+	<inherits name='com.gwtplatform.mvp.Mvp' />
+	<inherits name='com.gwtplatform.common.ClientsCommon' />
+
+	<inherits name='com.google.gwt.activity.Activity' />
+
+	<!-- GXT Theme -->
+	<inherits name='com.sencha.gxt.ui.GXT' />
+	<inherits name="com.sencha.gxt.theme.gray.Gray" />
+	<inherits name="it.lispa.bdl.gxt.theme.custom.Custom" />
+
+	<inherits name='net.sf.gilead.Gilead4Gwt' />
+
+
+	<!-- Include GWTUpload library -->
+	<inherits name="gwtupload.GWTUpload" />
+
+	<!-- Configura permutazioni supportate 
+	<set-property name="gxt.user.agent" value="chrome" />
+	<collapse-property name="gxt.user.agent" values="chrome" />
+	<collapse-property name="user.agent.os" values="*" />
+    -->
+
+	<set-configuration-property name="CssResource.style" value="pretty" />
+
+	<!-- Configurazioni custom di log -->
+	<inherits name="com.google.gwt.logging.Logging" />
+	<!-- Ask for all possible messages -->
+	<!-- <set-property name="gwt.logging.logLevel" value="FINEST" /> -->
+	<!-- Write messages to browser consoles and to the jvm and dev mode -->
+	<!-- Note that these are the defaults, so we don’t actually need to list them -->
+	<set-property name="gwt.logging.consoleHandler" value="ENABLED" />
+	<set-property name="gwt.logging.firebugHandler" value="ENABLED" />
+	<set-property name="gwt.logging.developmentModeHandler" value="ENABLED" />
+	<set-property name="gwt.logging.systemHandler" value="ENABLED" />
+	<!-- Disable the popupHandler when using GXT layouts, they draw above -->
+	<set-property name="gwt.logging.popupHandler" value="DISABLED" />
+	<!-- Leave RPC logging disabled, as we aren’t setting that up in this example -->
+	<set-property name="gwt.logging.simpleRemoteHandler" value="DISABLED" />
+	<!-- Ask GXT to log all internal details -->
+	<set-property name="gxt.logging.enabled" value="true" />
+
+	<extend-property name="locale" values="it" />
+	<!-- Questo è stato aggiunto per avere i messaggi di validazione in italiano... -->
+	<set-property-fallback name="locale" value="it" />
+
+
+	<entry-point class='it.lispa.bdl.client.Bdl' />
+	<!-- Dynamic Inject - per le classi appartenenti all'applicazione -->
+	<define-configuration-property name="gin.ginjector" is-multi-valued="false" />
+	<set-configuration-property name="gin.ginjector" value="it.lispa.bdl.client.gin.ClientGinjector" />
+
+	<source path='client' />
+	<source path='shared' />
+
+	<generate-with class="it.lispa.bdl.server.utils.CustomRpcRemoteProxyGenerator">
+		<when-type-assignable class="com.google.gwt.user.client.rpc.RemoteService" />
+	</generate-with>
+		
+</module>

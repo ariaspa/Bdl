@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+
+<html>
+<head>
+  <title>bookreader demo</title>
+  
+  <link rel="stylesheet" type="text/css" href="../BookReader/BookReader.css"/>
+  <!-- Custom CSS overrides -->
+  <link rel="stylesheet" type="text/css" href="bdlBookreader.css"/>
+
+  <script src="http://code.jquery.com/jquery-1.4.4.min.js" type="text/javascript"></script>
+  <script src="./jquery-ui-1.8.7.min.js" type="text/javascript"></script>
+
+  <script type="text/javascript" src="../BookReader/dragscrollable.js"></script>
+  <script type="text/javascript" src="../BookReader/jquery.colorbox-min.js"></script>
+  <script type="text/javascript" src="../BookReader/jquery.ui.ipad.js"></script>
+  <script type="text/javascript" src="../BookReader/jquery.bt.min.js"></script>
+
+  <script type="text/javascript" src="../BookReader/BookReader.js"></script>
+</head>
+<body style="background-color: #939598;">
+
+<div id="BdlToolbar">
+  <div id="BdlToolbarLeft">
+    <div class="logo"></div>
+    <div class="booktitle">Testo del titolo del mio bellissimo libro molto lungo e molto interessante molto lungo e molto interessante molto lungo e molto interessante molto lungo e molto interessante</div>
+  </div>
+  <div id="BdlToolbarRight">
+    <div class="booksearch">
+      <input type="text" value="Inserisci testo" />
+      <input type="button" value="Ricerca" />
+    </div>
+    <div class="bookpdf">sdsd</div>
+  </div>
+</div>
+<div class="use-left-sidebar" id="BdlMainSlider">
+  <div id="BdlMainContainer">
+    <div class="use-right-sidebar" id="BdlRightSlider">
+      <div id="BdlBookreaderContent">
+        <div id="BookReader">
+          Internet Archive BookReader Demo <br/>
+          <noscript>
+          <p>The BookReader requires JavaScript to be enabled. Please check that your browser supports JavaScript and that it is enabled in the browser settings.  You can also try one of the <a href="http://www.archive.org/details/goodytwoshoes00newyiala"> other formats of the book</a>.</p>
+          </noscript>
+        </div>
+      </div>
+      <div id="BdlOcr">
+        OCR
+      </div>
+      <a href="#" id="BdlSeparatorOcr"></a>
+      <div class="BdlClearer"></div>
+    </div>
+  </div>
+  <div id="BdlToc">
+    TOC
+  </div>
+  <a href="#" id="BdlSeparatorToc"></a>
+  <div class="BdlClearer"></div>
+</div>
+
+<script type="text/javascript" src="bdlBookreader.js"></script>
+</body>
+</html>

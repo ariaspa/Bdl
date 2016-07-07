@@ -1,0 +1,495 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns="http://www.w3.org/1999/xhtml" version="2.0">
+
+	<spring:url value="/resources/assets/img/no_thumb.gif" var="logo_no_cover_thumb" />
+	<spring:url value="/resources/assets/img/no_reader.gif" var="logo_no_cover_reader" />
+
+	<c:choose>
+		<c:when test="${not empty item}">
+			<spring:url value="${item.getDigitalReaderUrl(audioplayerUrl, mapreaderUrl, bookreaderUrl)}" var="linkToDigitalReader" />
+			<div class="row">
+				<div class="col-md-4">
+                    <c:choose>
+                        <c:when test="${item.digitalReader eq 'audio'}">
+                            <a href="${linkToDigitalReader}"
+                                title="[Apre un popup]" class="${item.digitalReader}Logo"> <c:choose>
+                                    <c:when test="${not empty item.getDefaultImageReaderUrl(backendPublicUrl)}">
+                                        <img src="${item.getDefaultImageReaderUrl(backendPublicUrl)}"
+                                            alt="Copertina dell'oggetto digitale"
+                                            class="img-full img-shadow" />
+    
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${logo_no_cover_reader}"
+                                            alt="Copertina dell'oggetto digitale"
+                                            class="img-full img-shadow" />
+                                    </c:otherwise>
+                                </c:choose>
+                            </a>
+                            <p class="text-center mrg-t-10">
+                                <a href="${linkToDigitalReader}"
+                                    class="${item.digitalReader}Link btn btn-primary fs-13" title="[Apre un popup]">Visualizza
+                                    oggetto digitale <span class="fa fa-cube"><jsp:text /></span>
+                                </a>
+                            </p>
+                        </c:when>
+                        <c:otherwise>
+	                        <c:choose>
+		                        <c:when test="${empty item.children}">
+		                            <a class="${item.digitalReader}Logo targetblank" href="${linkToDigitalReader}"
+		                                title="[Apre una nuova pagina]"> <c:choose>
+		                                    <c:when test="${not empty item.getDefaultImageReaderUrl(backendPublicUrl)}">
+		                                        <img src="${item.getDefaultImageReaderUrl(backendPublicUrl)}"
+		                                            alt="Copertina dell'oggetto digitale"
+		                                            class="img-full img-shadow" />
+		    
+		                                    </c:when>
+		                                    <c:otherwise>
+		                                        <img src="${logo_no_cover_reader}"
+		                                            alt="Copertina dell'oggetto digitale"
+		                                            class="img-full img-shadow" />
+		                                    </c:otherwise>
+		                                </c:choose>
+		                            </a>
+				               		<p class="text-center mrg-t-10">
+		                                <a href="${linkToDigitalReader}"
+		                                    class="${item.digitalReader}Link btn btn-primary targetblank fs-16"
+		                                    title="[Apre una nuova pagina]">Visualizza oggetto digitale
+		                                    <span class="fa fa-cube"><jsp:text /></span>
+		                                </a>
+		                            </p>
+		                        </c:when>
+		                        <c:otherwise>
+		                        	<c:choose>
+	                                    <c:when test="${not empty item.getDefaultImageReaderUrl(backendPublicUrl)}">
+	                                        <img src="${item.getDefaultImageReaderUrl(backendPublicUrl)}"
+	                                            alt="Copertina dell'oggetto digitale"
+	                                            class="img-full img-shadow" />
+	    
+	                                    </c:when>
+	                                    <c:otherwise>
+	                                        <img src="${logo_no_cover_reader}"
+	                                            alt="Copertina dell'oggetto digitale"
+	                                            class="img-full img-shadow" />
+	                                    </c:otherwise>
+	                                </c:choose>
+		                        </c:otherwise>
+	                        </c:choose>
+                        </c:otherwise>
+                    </c:choose>
+				</div>
+	
+				<div class="col-md-8">
+	
+					<h2 class="mrg-t-0">
+						<!--  
+                        <c:choose>
+                            <c:when test="${fn:length(item.title) lt 150}">
+                                <c:out value="${item.title}" />
+                            </c:when>
+                            <c:otherwise>
+                                <c:out value="${fn:substring(item.title, 0, 149)}" />
+                            </c:otherwise>
+                        </c:choose>
+                        -->
+						<c:out value="${item.title}" />
+					</h2>
+					<div class="product-details">
+					    <div class="clearfix"><jsp:text></jsp:text></div>
+						<table class="table table-striped table-responsive">
+							<caption class="sr-only">Dettaglio oggetto digitale</caption>
+							<c:if test="${not empty item.type.name}">
+								<tr>
+									<th class="left">Tipo documento</th>
+									<td class="right"><c:out value="${item.type.name}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.title}">
+								<tr>
+									<th class="left">Titolo</th>
+									<td class="right"><c:out value="${item.title}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.date}">
+								<tr>
+									<th class="left">Data</th>
+									<td class="right"><c:out value="${item.date}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.contentDescr}">
+								<tr>
+									<th class="left">Descrizione contenutistica</th>
+									<td class="right"><c:out value="${item.contentDescr}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.physicalDescr}">
+								<tr>
+									<th class="left">Descrizione fisica</th>
+									<td class="right"><c:out value="${item.physicalDescr}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.authors[0].name}">
+								<tr>
+									<th class="left">Autore/i</th>
+									<td class="right"><c:out value="${item.authors[0].name}" /><c:if
+											test="${not empty item.authors[1].name}">, <c:out value="${item.authors[1].name}" /></c:if></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.subjects[0].name}">
+								<tr>
+									<th class="left">Soggetto/i</th>
+									<td class="right"><c:out value="${item.subjects[0].name}" /><c:if
+											test="${not empty item.subjects[1].name}">, <c:out value="${item.subjects[1].name}" /></c:if></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.publisher.name}">
+								<tr>
+									<th class="left">Editore</th>
+									<td class="right"><c:out value="${item.publisher.name}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.lang.name}">
+								<tr>
+									<th class="left">Lingua</th>
+									<td class="right"><c:out value="${item.lang.name}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.place}">
+								<tr>
+									<th class="left">Luogo di pubblicazione</th>
+									<td class="right"><c:out value="${item.place}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.isbn}">
+								<tr>
+									<th class="left">Identificativo ISBN</th>
+									<td class="right"><c:out value="${item.isbn}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.issn}">
+								<tr>
+									<th class="left">Identificativo ISSN</th>
+									<td class="right"><c:out value="${item.issn}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.linkToCatalogue}">
+								<tr>
+									<th class="left">Link al catalogo</th>
+									<td class="right">
+										<a class="targetblank" href="${item.linkToCatalogue}"
+		                                        title="Vai al catalogo!">
+		                                        <c:out value="Clicca qui" /></a>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.notes}">
+								<tr>
+									<th class="left">Note</th>
+									<td class="right"><c:out value="${item.notes}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.rights}">
+								<tr>
+									<th class="left">Diritti</th>
+									<td class="right"><c:out value="${item.rights}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.segnatura}">
+								<tr>
+									<th class="left">Segnatura</th>
+									<td class="right"><c:out value="${item.segnatura}" /></td>
+								</tr>
+							</c:if>
+							<c:if test="${not empty item.collection.id}">
+								<tr>
+									<th class="left">Collezione</th>
+									<spring:url value="/collection/${item.collection.id}" var="linkToCollection" />
+									<td class="right"><a href="${linkToCollection}"
+										title="Visualizza altri oggetti della collezione: ${fn:escapeXml(item.collection.name)}">
+										<c:out value="${item.collection.name}" /></a></td>
+								</tr>
+							</c:if>
+						</table>
+						
+						<c:if test="${not empty item.isChildOf}">
+							<c:choose>
+	                            <c:when test="${item.kind ne 'Monografia'}">
+				                    <div class="row">
+				                        <div class="col-md-12"><h3 class="h6">Questo oggetto fa parte di:</h3></div>
+				                        <div class="col-md-12">
+				                            <div class="filter-list-results-container pad-0 fs-9">
+				                                <ol class="filter-list-results">
+				                                <spring:url value="/item/${item.isChildOf.id}" var="linkToFather" />
+				                                    <li><a class="item archive" href="${linkToFather}"
+				                                        title="Visualizza la scheda dell'oggetto digitale: ${fn:escapeXml(item.isChildOf.name)}">
+				                                        <c:out value="${item.isChildOf.name}" /></a></li>
+				                                </ol>
+				                            </div>
+				                            <br />
+				                        </div>
+				                    </div>
+	                            </c:when>
+	                            <c:otherwise>
+	                            	<!-- se è una Monografia Superiore... -->
+	                            	<c:if test="${not empty father}">
+			                            <div class="row">
+			                                <div class="col-md-12"><h3 class="h6">Questo oggetto è contenuto in:</h3></div>
+			                                <div class="col-md-12">
+											    <div class="clearfix"><jsp:text></jsp:text></div>
+												<div class="table-responsive">
+											    
+													<table class="table table-striped table-monografia-sup">
+														<caption class="sr-only">Dettaglio oggetto digitale "Monografia superiore". </caption>
+														<!--<c:if test="${not empty father.type.name}">
+															<tr>
+																<th class="left">Tipo documento</th>
+																<td class="right"><c:out value="${father.type.name}" /></td>
+															</tr>
+														</c:if>-->
+														<c:if test="${not empty father.title}">
+															<tr>
+																<th class="left">Titolo</th>
+																<td class="right"><c:out value="${father.title}" /></td>
+															</tr>
+														</c:if>
+														<!--<c:if test="${not empty father.date}">
+															<tr>
+																<th class="left">Data</th>
+																<td class="right"><c:out value="${father.date}" /></td>
+															</tr>
+														</c:if>-->
+														<c:if test="${not empty father.contentDescr}">
+															<tr>
+																<th class="left">Descrizione contenutistica</th>
+																<td class="right"><c:out value="${father.contentDescr}" /></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.physicalDescr}">
+															<tr>
+																<th class="left">Descrizione fisica</th>
+																<td class="right"><c:out value="${father.physicalDescr}" /></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.authors[0].name}">
+															<tr>
+																<th class="left">Autore/i</th>
+																<td class="right"><c:out value="${father.authors[0].name}" /><c:if
+																		test="${not empty father.authors[1].name}">, <c:out value="${father.authors[1].name}" /></c:if></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.subjects[0].name}">
+															<tr>
+																<th class="left">Soggetto/i</th>
+																<td class="right"><c:out value="${father.subjects[0].name}" /><c:if
+																		test="${not empty father.subjects[1].name}">, <c:out value="${father.subjects[1].name}" /></c:if></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.publisher.name}">
+															<tr>
+																<th class="left">Editore</th>
+																<td class="right"><c:out value="${father.publisher.name}" /></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.lang.name}">
+															<tr>
+																<th class="left">Lingua</th>
+																<td class="right"><c:out value="${father.lang.name}" /></td>
+															</tr>
+														</c:if>
+														<c:if test="${not empty father.place}">
+															<tr>
+																<th class="left">Luogo di pubblicazione</th>
+																<td class="right"><c:out value="${father.place}" /></td>
+															</tr>
+														</c:if>
+														<!--<c:if test="${not empty father.isbn}">
+															<tr>
+																<th class="left">Identificativo ISBN</th>
+																<td class="right"><c:out value="${father.isbn}" /></td>
+															</tr>
+														</c:if>-->
+														<!--<c:if test="${not empty father.issn}">
+															<tr>
+																<th class="left">Identificativo ISSN</th>
+																<td class="right"><c:out value="${father.issn}" /></td>
+															</tr>
+														</c:if>-->
+														<c:if test="${not empty father.notes}">
+															<tr>
+																<th class="left">Note</th>
+																<td class="right"><c:out value="${father.notes}" /></td>
+															</tr>
+														</c:if>
+														<!--<c:if test="${not empty father.rights}">
+															<tr>
+																<th class="left">Diritti</th>
+																<td class="right"><c:out value="${father.rights}" /></td>
+															</tr>
+														</c:if>-->
+													</table>
+												
+												</div>
+											</div>
+										</div>
+	                            	</c:if>
+	                            </c:otherwise>
+	                        </c:choose>
+						</c:if>
+
+                        <c:if test="${not empty item.children}">
+	                        <c:choose>
+	                            <c:when test="${item.kind eq 'Periodico'}">
+		                            <div class="row">
+				                        <div class="col-md-12"><h3 class="h6">Questo oggetto contiene:</h3></div>
+		                                <div class="col-md-12">
+		                                    <div class="filter-list-results-container pad-0 fs-9">
+		                                            
+	                                            <c:choose>
+	                                              <c:when test="${not empty children}">
+
+                                                    <ol class="filter-list-results">
+                                                        <c:forEach items="${children}" var="child" varStatus="contChildren">
+                                                            <c:if test="${not empty child}">
+                                                               <spring:url value="/item/${child.id}" var="linkToChild" />
+                                                               
+                                                                <li class="item book">
+                                                                    <div class="row">
+                                                                        <div class="col-xs-4 col-lg-2"> <c:choose>
+                                                                                    <c:when
+                                                                                        test="${not empty child.getDefaultImageThumbUrl(backendPublicUrl)}">
+                                                                                        <img src="${child.getDefaultImageThumbUrl(backendPublicUrl)}"
+                                                                                            alt="Copertina dell'oggetto digitale" class="img-full" />
+                                                                                    </c:when>
+                                                                                    <c:otherwise>
+                                                                                        <img src="${logo_no_cover_thumb}"
+                                                                                            alt="Copertina dell'oggetto digitale" class="img-full" />
+                                                                                    </c:otherwise>
+                                                                                </c:choose>
+                                                                        </div>
+                                                                        <div class="col-xs-8 col-lg-10"><c:out value="${child.title}" /></div>
+                                                                        
+                                                                        <div class="col-xs-12 text-right">
+                                                                        
+                                                                            <c:if test="${not empty child.getDigitalReaderUrl(audioplayerUrl, mapreaderUrl, bookreaderUrl)}">
+                                                                                <spring:url value="${child.getDigitalReaderUrl(audioplayerUrl, mapreaderUrl, bookreaderUrl)}"
+                                                                                    var="linkToDigitalReader" />
+                                                                                <c:choose>
+                                                                                    <c:when test="${child.digitalReader eq 'audio'}">
+                                                                                        <a href="${linkToDigitalReader}"
+                                                                                           title="[Apre un popup]"
+                                                                                           class="${item.digitalReader}Link btn btn-primary">Visualizza oggetto
+                                                                                            digitale <span class="fa fa-cube"><jsp:text /></span></a>
+                                                                                    </c:when>
+                                                                                    <c:otherwise>
+                                                                                        <a  href="${linkToDigitalReader}"
+                                                                                            class="${item.digitalReader}Link btn btn-primary targetblank"
+                                                                                            title="[Apre una nuova pagina]">Visualizza oggetto
+                                                                                             digitale <span class="fa fa-cube"><jsp:text /></span> 
+                                                                                        </a>
+                                                                                    </c:otherwise>
+                                                                                </c:choose>
+                                                                            </c:if>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        </ol>
+	                                              
+	                                              </c:when>
+	                                              <c:otherwise>
+	                                                  <p class="text-right"><em>Ho un problema nel recuperare gli oggetti collegati.</em></p>
+	                                              </c:otherwise>
+	                                            </c:choose>
+		                                    </div>
+		                                    <br />
+		                                </div>
+		                            </div>
+	                            </c:when>
+	                            <c:otherwise>
+		                            <div class="row">
+		                                <div class="col-md-12"><h3 class="h6">Questo oggetto contiene:</h3></div>
+		                                <div class="col-md-12">
+		                                    <div class="filter-list-results-container pad-0 fs-9">
+		                                        <ol class="filter-list-results">
+		                                            <c:forEach items="${item.children}" var="child" varStatus="contChildren">
+		                                                <c:if test="${not empty child}">
+		                                                   <spring:url value="/item/${child.id}" var="linkToChild" />
+		                                                   <li><a class="item book" href="${linkToChild}"
+		                                                title="Visualizza la scheda dell'oggetto digitale: ${fn:escapeXml(child.name)}">
+		                                                <c:out value="${child.name}" /></a></li>
+		                                                </c:if>
+		                                            </c:forEach>
+		                                        </ol>
+		                                    </div>
+		                                    <br />
+		                                </div>
+		                            </div>
+	                            </c:otherwise>
+	                        </c:choose>
+                        </c:if>
+                        
+						<div class="row">
+							<div class="col-md-3 text-left">
+								<a href="javascript:history.go(-1)" class="btn btn-primary btn-block"
+									title="Torna indietro"> <span class="fa fa-chevron-left"><jsp:text /></span>
+									Indietro
+								</a> <br class="hidden-md" />
+							</div>
+							<div class="col-md-4 col-md-offset-1 text-right">
+							
+							 <c:if test="${empty item.children}">
+                                <c:if test="${item.digitalReader ne 'audio'}">
+                                    <c:choose>
+                                        <c:when test="${not empty item.getPdfUrl(backendPublicUrl)}">
+                                            <spring:url value="${item.getPdfUrl(backendPublicUrl)}" var="linkToPdf" />
+                                            <a href="${linkToPdf}" class="btn btn-primary btn-block"
+                                                title="Scarica PDF"> <span class="fa fa-file-pdf-o"><jsp:text /></span>
+                                                Formato PDF
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="#null" class="btn btn-primary btn-block"
+                                                title="Scarica PDF"> <span class="fa fa-file-pdf-o"><jsp:text /></span>
+                                                Formato PDF
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:if>
+							 </c:if>
+								<br class="hidden-md" />
+							</div>
+							<div class="col-md-4">
+								<c:choose>
+									<c:when test="${not empty item.getMetsUrl(backendPublicUrl)}">
+										<spring:url value="${item.getMetsUrl(backendPublicUrl)}" var="linkToMets" />
+										<a href="${linkToMets}" class="btn btn-primary targetblank btn-block"
+											title="Scarica METS"> <span class="fa fa-file-code-o"><jsp:text /></span>
+											Metadati METS
+										</a>
+									</c:when>
+									<c:otherwise>
+										<a href="#null" class="btn btn-primary btn-block"
+											title="Scarica METS"> <span class="fa fa-file-code-o"><jsp:text /></span>
+											Metadati METS
+										</a>
+									</c:otherwise>
+								</c:choose>
+								<br class="hidden-md" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+		    <h3 class="text-center"><strong><em>Oggetto digitale non disponibile.</em></strong></h3>
+		</c:otherwise>
+	</c:choose>
+
+</jsp:root>

@@ -1,0 +1,123 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:row="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button">
+
+
+	<ui:with type="it.lispa.bdl.client.images.Images" field="images" />
+	<ui:with type="it.lispa.bdl.shared.messages.HomeMsg"
+		field="messages" />
+	
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="boxMargins">
+		<ui:attributes top="4" right="4" bottom="4" left="4" />
+	</ui:with>
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="vertTitle">
+		<ui:attributes width="1" height="30" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="vertContent">
+		<ui:attributes width="1" height="1" />
+	</ui:with>
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData"
+		field="widthFull">
+		<ui:attributes width=".333" height="1" margins="{boxMargins}" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData"
+		field="widthThird">
+		<ui:attributes width=".333" height="1" margins="{boxMargins}" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData"
+		field="widthHalf">
+		<ui:attributes width=".5" height="1" margins="{boxMargins}" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="heightHalf">
+		<ui:attributes width="1" height=".5" margins="{boxMargins}" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="heightThird">
+		<ui:attributes width="1" height=".333" margins="{boxMargins}" />
+	</ui:with>
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="heightFull">
+		<ui:attributes width="1" height="1" margins="{boxMargins}" />
+	</ui:with>
+
+
+	<gxt:ContentPanel ui:field="panel" headingText="{messages.titlePanel}"
+		styleName="contentTitoloPagina">
+
+
+			<row:HorizontalLayoutContainer>
+				<row:child layoutData="{widthThird}">
+					<g:HTMLPanel>
+						<div class="homeCard homeCardBg1">
+							<h3>BDL - Biblioteca Digitale Lombarda</h3>
+							<hr />
+							<p>BDL Biblioteca Digitale Lombarda di Regione Lombardia consente di 
+								gestire il processo di back office per la realizzazione di una
+								biblioteca digitale.</p>
+							<p>Il progetto prevede la realizzazione di oggetti digitali, corredati
+								da metadati, indici e descrizioni predisposte per la pubblicazione
+								in rete senza restrizioni.</p>
+							<p>BDL permette il caricamento diretto delle immagini, il monitoraggio
+								e la verfica dei contenuti da pubblicare.</p>
+						</div>
+					</g:HTMLPanel>
+				</row:child>
+				<row:child layoutData="{widthThird}">
+					<g:HTMLPanel>
+						<div class="homeCard homeCardBg2">
+							<h3>Chi pu&ograve; accedere a BDL e come autenticarsi</h3>
+							<hr />
+							<p>Possono accedere a BDL per ottenere l'autenticazione:</p>
+							<ul>
+							    <li>gli operatori di biblioteca/istituto per la gestione come catalogatori di oggetti digitali</li>
+							    <li>i responsabili di biblioteca/istituto per la gestione come supervisori delle procedure di catalogazione</li>
+							    <li>le società di digitalizzazione come digitalizzatori per il caricamento di immagini</li>
+							    <li>gli operatori di Regione Lombardia per la gestione e monitoraggio dei progetti</li>
+							</ul>
+							<p>Ogni volta che si accede a BDL &egrave; necessario autenticarsi mediante:</p>
+							<ul>
+							    <li>IDPC - CRS - CNS - Carta Regionale/Nazionale dei Servizi oppure con la modalit&agrave; IDPC utente e password.</li>
+							</ul>
+						</div>
+					</g:HTMLPanel>
+				</row:child>
+				<row:child layoutData="{widthThird}">
+					<g:HTMLPanel>
+						<div class="homeCard homeCardBg3">
+							<h3><ui:text from="{messages.panelIdpcTitle}" /></h3>
+							<hr />
+							<p><ui:text from="{messages.panelIdpcContent}" /></p>
+							<button:TextButton text="{messages.panelIdpcBtn}" ui:field="btnIdpc" />
+						</div>
+						<div class="homeCard homeCardBg3">
+							<h3><ui:text from="{messages.panelRegistratiTitle}" /></h3>
+							<hr />
+							<p><ui:text from="{messages.panelRegistratiContent}" /></p>							
+							<button:TextButton text="{messages.panelRegistratiBtn}" ui:field="btnRegistrazione" />
+						</div>
+
+					</g:HTMLPanel>
+
+				</row:child>
+			</row:HorizontalLayoutContainer>
+
+
+
+	</gxt:ContentPanel>
+
+</ui:UiBinder>

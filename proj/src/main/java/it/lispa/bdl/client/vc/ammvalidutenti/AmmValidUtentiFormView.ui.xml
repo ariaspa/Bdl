@@ -1,0 +1,100 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+	xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form"
+	xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button">
+
+	<ui:with type="it.lispa.bdl.client.images.Images" field="images" />
+	<ui:with type="it.lispa.bdl.shared.messages.AmmValidUtentiMsg"
+		field="messages" />
+
+	<ui:with
+		type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData"
+		field="verticalLayoutData">
+		<ui:attributes width="1" height="-1" />
+	</ui:with>
+
+	<gxt:Window ui:field="dialog" buttonAlign="END" resizable="false"
+		modal="false" minHeight="231" pixelSize="600,400">
+		<gxt:FramedPanel headerVisible="false">
+			<form:FieldSet ui:field="fieldSet" headingText="{messages.infoUtente}"
+				collapsible="false">
+				<container:VerticalLayoutContainer>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.nome}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="nome" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.cognome}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="cognome" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.cf}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="cf" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.email}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="email" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.telefono}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="telefono" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.ruolo}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="ruolo" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.ente}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="ente" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.stato}" labelWidth="250">
+							<form:widget>
+								<g:InlineLabel ui:field="stato" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+					<container:child layoutData="{verticalLayoutData}">
+						<form:FieldLabel text="{messages.dataRegistrazione}" labelWidth="250">
+							<form:widget>
+								<g:DateLabel ui:field="dataRegistrazione" />
+							</form:widget>
+						</form:FieldLabel>
+					</container:child>
+				</container:VerticalLayoutContainer>
+			</form:FieldSet>
+		</gxt:FramedPanel>
+		<gxt:button>
+			<button:TextButton text="{messages.btnItemAnnulla}"
+				ui:field="annulla" icon="{images.indietro}" />
+		</gxt:button>
+		<gxt:button>
+			<button:TextButton text="{messages.btnItemValidazione}"
+				ui:field="validazione" icon="{images.approva}" />
+		</gxt:button>
+	</gxt:Window>
+</ui:UiBinder>

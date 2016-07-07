@@ -1,0 +1,488 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:form="http://www.springframework.org/tags/form" version="2.0">
+
+	<spring:url value="/resources/assets/img/no_thumb.gif"
+		var="logo_no_cover_thumb" />
+	<spring:url value="/resources/assets/img/no_reader.gif"
+		var="logo_no_cover_reader" />
+
+	<spring:url value="${searchFormObj.getMainFormAction()}1" var="searchUrl" />
+	<form:form modelAttribute="searchFormObj" action="${searchUrl}" method="post" class="form-horizontal">
+		<c:if test="${not empty errorMessage}">
+			<div class="alert alert-danger fs-14">
+				<span class="fa fa-exclamation-circle mrg-r-10"><jsp:text /></span><strong>
+					<c:out value="${errorMessage}" />
+				</strong>
+			</div>
+		</c:if>
+
+		<div class="row">
+			<div class="col-md-12">
+
+				<div class="panel panel-default">
+					<!-- Default panel contents -->
+					<div class="panel-heading fs-14">
+						<div class="row">
+							<div class="col-sm-3 col-md-3">
+								<button class="btn btn-primary" type="submit">
+									Avvia la ricerca <span class="fa fa-search"></span>
+								</button>
+							</div>
+							<spring:url value="/search/init/" var="searchInitUrl" />
+							<div class="col-sm-6 col-md-6 text-right">
+								<div class="form-group mrg-b-0">
+									<label class="col-sm-3 control-label text-right"
+										for="orderOption">Ordina per</label>
+									<div class="col-sm-9">
+										<form:select path="orderOption" id="orderOption"
+											class="form-control">
+											<form:options items="${orderOptions}" />
+										</form:select>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-3 col-md-3 text-right">
+								<a title="reset" class="btn btn-default mrg-r-10"
+									href="${searchInitUrl}"> Cancella selezione <span
+									class="fa fa-times"><jsp:text /></span></a>
+							</div>
+							<div class="clearfix"><jsp:text /></div>
+						</div>
+					</div>
+				</div>
+
+				<div class="form-box">
+					<fieldset class="form-box-fieldset"
+						id="advancedSearchCompositionCnt">
+						<legend class="sr-only">Ricerca avanzata per parola/e
+							chiave.</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Scrivi una parola di ricerca nel/i campi
+									qui sotto.</p>
+							</div>
+						</div>
+						<c:forEach items="${searchFormObj.compositionFilters}"
+							var="cmpFilter" varStatus="contRow">
+							<div class="row">
+								<div class="col-md-2 clearfix">
+									<c:choose>
+										<c:when test="${contRow.index!=0}">
+											<label class="sr-only" for="logicalOperator-${contRow.index}">Seleziona
+												l'operatore logico</label>
+											<form:select
+												path="compositionFilters[${contRow.index}].logicalOperator"
+												id="logicalOperator-${contRow.index}" class="form-control">
+												<form:option value="">Seleziona</form:option>
+												<form:options items="${logicalOperators}" />
+											</form:select>
+										</c:when>
+										<c:otherwise>&#160;</c:otherwise>
+									</c:choose>
+								</div>
+								<div class="col-md-4">
+									<label class="sr-only" for="filterType-${contRow.index}">Seleziona
+										la tipologia di filtro</label>
+									<form:select
+										path="compositionFilters[${contRow.index}].filterType"
+										id="filterType-${contRow.index}" class="form-control">
+										<form:option value="">Seleziona</form:option>
+										<form:options items="${filterTypes}" />
+									</form:select>
+								</div>
+								<div class="col-md-5">
+									<label class="sr-only" for="comparisonValue-${contRow.index}">Inserisci
+										la chiave di ricerca</label>
+									<form:input
+										path="compositionFilters[${contRow.index}].comparisonValues[0].comparisonValue"
+										id="comparisonValue-${contRow.index}" class="form-control" />
+								</div>
+								<div class="col-md-1">
+									<c:choose>
+										<c:when test="${contRow.first}">
+											<span class="btn btn-primary" id="advancedSearchAddRow"><span
+												class="fa fa-plus">&#160;</span></span>
+										</c:when>
+										<c:otherwise><jsp:text /></c:otherwise>
+									</c:choose>
+								</div>
+							</div>
+						</c:forEach>
+						<div class="row hidden" id="advancedSearchFakefilter">
+							<div class="col-md-2 clearfix">
+								<label class="sr-only" for="logicalOperator-XX">Seleziona
+									l'operatore logico</label>
+								<form:select path="fakeFilter.logicalOperator"
+									id="logicalOperator-XX" class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${logicalOperators}" />
+								</form:select>
+							</div>
+							<div class="col-md-4">
+								<label class="sr-only" for="filterType-XX">Seleziona la
+									tipologia di filtro</label>
+								<form:select path="fakeFilter.filterType" id="filterType-XX"
+									class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${filterTypes}" />
+								</form:select>
+							</div>
+							<div class="col-md-5">
+								<label class="sr-only" for="fakeFilter-XX">Inserisci la
+									chiave di ricerca</label>
+								<form:input
+									path="fakeFilter.comparisonValues[0].comparisonValue"
+									id="fakeFilter-XX" class="form-control" />
+							</div>
+							<div class="col-md-1"><jsp:text /></div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per data di
+							pubblicazione</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per data di pubblicazione</p>
+							</div>
+
+								<div class="col-md-4">
+									<label class="sr-only" for="filterDateOption">Seleziona
+										l'opzione di filtro</label>										
+									<form:select
+										path="dateFilter.comparisonValues[2].comparisonValue"
+										id="filterDateOption" class="form-control">
+										<form:option value="">Seleziona</form:option>
+										<form:options items="${dateFilterOptions}" />
+									</form:select>
+								</div>
+								<div class="col-md-4" id="inputDataUno">
+									<span class="sr-only">Inserisci una data di inizio</span>
+									<!--label class="control-label" for="inputDataFrom">Da</label-->
+									<form:input
+										path="dateFilter.comparisonValues[0].comparisonValue"
+										id="inputDataFrom" class="form-control" maxlength="4" style="width:80%;" />
+								</div>
+								<div class="col-md-4" id="inputDataDue">
+									<span class="sr-only">Inserisci una data di fine</span>
+									<label class="control-label pull-left mrg-r-5" for="inputDataTo">a</label>
+									<form:input
+										path="dateFilter.comparisonValues[1].comparisonValue"
+										id="inputDataTo" class="form-control" maxlength="4" style="width:80%;" />
+								</div>
+
+							<!--
+							<div class="col-md-4 clearfix">
+								<label class="sr-only" for="filterDateOption">Seleziona
+									l'opzione di filtro</label>
+								<form:select
+									path="dateFilter.comparisonValues[2].comparisonValue"
+									id="filterDateOption" class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${dateFilterOptions}" />
+								</form:select>
+							</div>
+							<div class="col-md-4" id="inputDataUno">
+								<span class="text-center fs-11 pull-left mrg-r-10">da</span>
+								<label class="sr-only" for="inputDataFrom">Inserisci
+									una data di inizio</label>
+								<form:input
+									path="dateFilter.comparisonValues[0].comparisonValue"
+									id="inputDataFrom" class="form-control" maxlength="4" />
+							</div>
+							<div class="col-md-4" id="inputDataDue">
+								<span class="text-center fs-11 pull-left mrg-r-10">a</span>
+								<label class="sr-only" for="inputDataTo">Inserisci una
+									data di fine</label>
+								<form:input
+									path="dateFilter.comparisonValues[1].comparisonValue"
+									id="inputDataTo" class="form-control" maxlength="4" />
+							</div>
+							-->
+							
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			
+			<div class="col-md-6">
+				<div class="form-box">
+				
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per lingua</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per lingua</p>
+							</div>
+							<c:forEach items="${languages}" var="item" varStatus="contItem">
+								<c:if test="${contItem.index%4==0}">
+									<![CDATA[<div class="row">]]>
+								</c:if>
+								<div class="col-md-3">
+									<div class="check custom-check">
+										<label> <span class="icheckbox_polaris"
+											style="position: relative;"> <form:checkbox
+													path="langFilters" value="${item.id}"
+													style="position: absolute; opacity: 0;" /> <ins
+													class="iCheck-helper"
+													style="position: relative; top: 0%; left: 0%; display: block; width: 100%; 
+													height: 100%; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); 
+													border: 0px none; opacity: 0;"><jsp:text /></ins>
+										</span> ${item.name}
+										</label>
+									</div>
+								</div>
+								<c:if test="${contItem.index%4==3 or contItem.last}">
+									<![CDATA[</div>]]>
+								</c:if>
+							</c:forEach>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+			
+		</div>
+		
+		<div class="clearfix"><jsp:text /></div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per tipologia</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per tipologia</p>
+							</div>
+							<c:forEach items="${types}" var="item" varStatus="contItem">
+								<c:if test="${contItem.index%2==0}">
+									<![CDATA[<div class="row">]]>
+								</c:if>
+								<div class="col-md-6">
+									<div class="check custom-check">
+										<label> <span class="icheckbox_polaris"
+											style="position: relative;"> <form:checkbox
+													path="typeFilters" value="${item.id}"
+													style="position: absolute; opacity: 0;" /> <ins
+													class="iCheck-helper"
+													style="position: relative; top: 0%; left: 0%; display: block; width: 100%; 
+													height: 100%; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); 
+													border: 0px none; opacity: 0;"><jsp:text /></ins>
+										</span> ${item.name}
+										</label>
+									</div>
+								</div>
+								<c:if test="${contItem.index%2==1 or contItem.last}">
+									<![CDATA[</div>]]>
+								</c:if>
+
+							</c:forEach>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per natura</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per natura</p>
+							</div>
+							<c:forEach items="${kinds}" var="item" varStatus="contItem">
+								<c:if test="${contItem.index%2==0}">
+									<![CDATA[<div class="row">]]>
+								</c:if>
+								<div class="col-md-6 clearfix">
+									<div class="check custom-check">
+										<label> <span class="icheckbox_polaris"
+											style="position: relative;"> <form:checkbox
+													path="kindFilters" value="${item.id}"
+													style="position: absolute; opacity: 0;" /> <ins
+													class="iCheck-helper"
+													style="position: relative; top: 0%; left: 0%; display: block; width: 100%; 
+													height: 100%; margin: 0px; padding: 0px; background: none repeat scroll 0% 0% rgb(255, 255, 255); 
+													border: 0px none; opacity: 0;"><jsp:text /></ins>
+										</span> ${item.name}
+										</label>
+									</div>
+								</div>
+								<c:if test="${contItem.index%2==1 or contItem.last}">
+									<![CDATA[</div>]]>
+								</c:if>
+							</c:forEach>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		
+		<div class="clearfix"><jsp:text /></div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per soggetto</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per soggetto</p>
+							</div>
+						</div>
+						<c:forEach begin="0" end="2" step="1" varStatus="contRow">
+							<div class="row">
+								<div class="col-md-4">
+									<label class="sr-only"
+										for="filterSubjects-${contRow.index*3+0}">Seleziona
+										l'opzione di filtro</label>
+									<form:select path="subjectFilters[${contRow.index*3+0}]"
+										id="filterSubjects-${contRow.index*3+0}" class="form-control">
+										<form:option value="">Seleziona</form:option>
+										<form:options items="${subjects}" itemValue="id"
+											itemLabel="name" />
+									</form:select>
+								</div>
+								<div class="col-md-4">
+									<label class="sr-only"
+										for="filterSubjects-${contRow.index*3+1}">Seleziona
+										l'opzione di filtro</label>
+									<form:select path="subjectFilters[${contRow.index*3+1}]"
+										id="filterSubjects-${contRow.index*3+1}" class="form-control">
+										<form:option value="">Seleziona</form:option>
+										<form:options items="${subjects}" itemValue="id"
+											itemLabel="name" />
+									</form:select>
+								</div>
+								<div class="col-md-4">
+									<label class="sr-only"
+										for="filterSubjects-${contRow.index*3+2}">Seleziona
+										l'opzione di filtro</label>
+									<form:select path="subjectFilters[${contRow.index*3+2}]"
+										id="filterSubjects-${contRow.index*3+2}" class="form-control">
+										<form:option value="">Seleziona</form:option>
+										<form:options items="${subjects}" itemValue="id"
+											itemLabel="name" />
+									</form:select>
+								</div>
+							</div>
+						</c:forEach>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		
+		<div class="clearfix"><jsp:text /></div>
+		
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per
+							specificit&#224; materiale grafico / supporto / tecnica</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per specificit&#224; materiale grafico /
+									supporto / tecnica</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="sr-only" for="filterGraphicMaterial">Seleziona
+									il materiale grafico</label>
+								<form:select path="graphicmaterialFilter"
+									id="filterGraphicMaterial" class="form-control">
+									<form:option value="">Seleziona Mat. Grafico</form:option>
+									<form:options items="${graphicMaterials}" itemValue="id"
+										itemLabel="name" />
+								</form:select>
+							</div>
+							<div class="col-md-12">
+								<label class="sr-only" for="filterSupport">Seleziona la
+									tipologia di supporto</label>
+								<form:select path="supportFilter" id="filterSupport"
+									class="form-control">
+									<form:option value="">Seleziona Supporto</form:option>
+									<form:options items="${supports}" itemValue="id"
+										itemLabel="name" />
+								</form:select>
+							</div>
+							<div class="col-md-12">
+								<label class="sr-only" for="filterTecnique">Seleziona il
+									tipo di tecnica</label>
+								<form:select path="tecniqueFilter" id="filterTecnique"
+									class="form-control">
+									<form:option value="">Seleziona Tecnica</form:option>
+									<form:options items="${tecniques}" itemValue="id"
+										itemLabel="name" />
+								</form:select>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+
+			<div class="col-md-6">
+				<div class="form-box">
+					<fieldset class="form-box-fieldset">
+						<legend class="sr-only">Ricerca avanzata per collezione</legend>
+						<div class="row">
+							<div class="col-xs-12">
+								<p class="fs-12">Per collezione</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12">
+								<label class="sr-only" for="filterCollections-0">Seleziona
+									l'opzione di filtro</label>
+								<form:select path="collectionFilters[0]"
+									id="filterCollections-0" class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${collections}" itemValue="id"
+										itemLabel="title" />
+								</form:select>
+							</div>
+							<div class="col-md-12">
+								<label class="sr-only" for="filterCollections-1">Seleziona
+									l'opzione di filtro</label>
+								<form:select path="collectionFilters[1]"
+									id="filterCollections-1" class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${collections}" itemValue="id"
+										itemLabel="title" />
+								</form:select>
+							</div>
+							<div class="col-md-12">
+								<label class="sr-only" for="filterCollections-2">Seleziona
+									l'opzione di filtro</label>
+								<form:select path="collectionFilters[2]"
+									id="filterCollections-2" class="form-control">
+									<form:option value="">Seleziona</form:option>
+									<form:options items="${collections}" itemValue="id"
+										itemLabel="title" />
+								</form:select>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		
+		<p class="text-center">
+			<button class="btn btn-primary btn-lg" type="submit">
+				Avvia la ricerca <span class="fa fa-search"></span>
+			</button>
+		</p>
+
+	</form:form>
+
+</jsp:root>

@@ -1,0 +1,16 @@
+/**
+ * Content Panel personalizzato
+ * 
+ */
+.panel {
+  border-color: none;
+  border:0;
+}
+
+.body {
+	border:0;
+	background-color:#ecf5ec;
+}
+
+
+

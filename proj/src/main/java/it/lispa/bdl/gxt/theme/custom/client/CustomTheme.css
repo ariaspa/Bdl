@@ -1,0 +1,41 @@
+/**
+ * GXT 3.0 Tema custom Biblioteca Digitale Lombarda
+ * 
+ */
+@def borderColor white;
+@def borderColorLight white;
+@def backgroundColorLight #e8eee8;
+@def fontfamily "Trebuchet MS", Garuda, FreeSans, arial, sans-serif;
+@def fontsize 12px;
+@def fontColor #313131;
+
+body {
+	font-family: fontfamily !important;
+	font-size: fontsize !important;
+	background-color: backgroundColorLight;
+	color: fontColor;
+	
+} 
+
+.border {
+  border: 0; 
+}
+
+.borderLeft {
+  border: 0; 
+}
+
+.borderRight {
+  border: 0;
+   
+}
+
+.borderTop {
+  border: none;
+  border-top: 0 
+}
+
+.borderBottom {
+  border: none;
+  border-bottom: 0
+}

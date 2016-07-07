@@ -1,0 +1,476 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder' xmlns:g='urn:import:com.google.gwt.user.client.ui' xmlns:gxt="urn:import:com.sencha.gxt.widget.core.client"
+	xmlns:form="urn:import:com.sencha.gxt.widget.core.client.form" xmlns:container="urn:import:com.sencha.gxt.widget.core.client.container"
+	xmlns:toolbar="urn:import:com.sencha.gxt.widget.core.client.toolbar" xmlns:button="urn:import:com.sencha.gxt.widget.core.client.button"
+	xmlns:grid="urn:import:com.sencha.gxt.widget.core.client.grid" xmlns:tree="urn:import:com.sencha.gxt.widget.core.client.tree">
+
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="buttonsMargins">
+		<ui:attributes top="0" right="5" bottom="0" left="0" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.core.client.util.Margins" field="pageMargins">
+		<ui:attributes top="15" right="15" bottom="15" left="15" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formLayoutData">
+		<ui:attributes width="1" height="-1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formLayoutDataTextArea">
+		<ui:attributes width="1" height="40" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formContentScroller">
+		<ui:attributes width="1" height="1" margins="{pageMargins}" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formToolbar">
+		<ui:attributes width="1" height="40" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formContent">
+		<ui:attributes width=".95" height="-1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="formButtons">
+		<ui:attributes width="1" height="40" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.BoxLayoutContainer.BoxLayoutData" field="formButtonsMargins">
+		<ui:attributes margins="{buttonsMargins}" />
+	</ui:with>
+
+	<ui:with type="it.lispa.bdl.client.images.Images" field="images" />
+	<ui:with type="it.lispa.bdl.shared.messages.ValOggettoDettaglioMsg" field="messages" />
+
+
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigValidazione">
+		<ui:attributes text="{messages.tabValidazione}" />
+	</ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigCatalogazione">
+		<ui:attributes text="{messages.tabCatalogazione}" />
+	</ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigCronologia">
+		<ui:attributes text="{messages.tabCronologia}" />
+	</ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigSommario">
+		<ui:attributes text="{messages.tabSommario}" />
+	</ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigAnteprima">
+		<ui:attributes text="{messages.tabAnteprima}" />
+	</ui:with>
+	<ui:with type="com.sencha.gxt.widget.core.client.TabItemConfig" field="tabConfigCorrezioni">
+		<ui:attributes text="{messages.tabCorrezioni}" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData" field="centerSommario">
+		<ui:attributes width=".5" height="1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.HorizontalLayoutContainer.HorizontalLayoutData" field="sideSommario">
+		<ui:attributes width=".5" height="1" />
+	</ui:with>
+
+	<ui:with type="com.sencha.gxt.widget.core.client.container.VerticalLayoutContainer.VerticalLayoutData" field="treeSommarioScroller">
+		<ui:attributes width="1" height="1" />
+	</ui:with>
+
+	<ui:style>
+		.tabModifier > DIV:first-child{
+		height:25px !important;
+		border-top:1px solid white;
+		}
+	</ui:style>
+
+	<gxt:TabPanel ui:field="tabPanel" addStyleNames="{style.tabModifier}">
+	    
+		<gxt:child config="{tabConfigValidazione}">
+			<container:VerticalLayoutContainer>
+				<container:child layoutData="{formButtons}">
+					<container:HBoxLayoutContainer ui:field="buttonsValidazione" hBoxLayoutAlign="MIDDLE" pack="CENTER">
+					    
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnAnnulla}" icon="{images.indietro}" ui:field="btnAnnulla" />
+						</container:child>
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnValida}" icon="{images.approva}" ui:field="btnValida" />
+						</container:child>
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnDiniega}" icon="{images.annulla}" ui:field="btnDiniega" />
+						</container:child>
+					</container:HBoxLayoutContainer>
+				</container:child>
+				<container:child layoutData="{formContentScroller}">
+					<form:FieldSet ui:field="fieldsetValidazione" headingText="{messages.fieldsetValidazione}" collapsible="false">
+						<container:VerticalLayoutContainer ui:field="fieldsetVlcValidazione">
+							<container:child layoutData="{formContentScroller}">
+								<form:TextArea ui:field="noteDiniegoValidazione" />
+							</container:child>
+						</container:VerticalLayoutContainer>
+					</form:FieldSet>
+				</container:child>
+			</container:VerticalLayoutContainer>
+		</gxt:child>
+		
+		<gxt:child config="{tabConfigCatalogazione}">
+
+			<container:VerticalLayoutContainer>
+				<container:child layoutData="{formContentScroller}">
+					<form:FieldSet ui:field="fieldsetCatalogazioneView" headingText="" collapsible="false">
+						<container:VerticalLayoutContainer ui:field="fieldsetVlcCatalogazioneView">
+							<container:child layoutData="{formContent}">
+
+								<container:VerticalLayoutContainer>
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.titoloCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="titoloCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.titoloFeCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="titoloFeCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.titoloSupCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="titoloSupCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.immaginiPrevisteCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="immaginiPrevisteCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.tipologiaOggettoCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="tipologiaOggettoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel text="{messages.includeAltriTitoliCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="includeAltriTitoliCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="descrizioneContenutisticaCatalogazioneLblView" text="{messages.descrizioneContenutisticaCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="descrizioneContenutisticaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="descrizioneFisicaCatalogazioneLblView" text="{messages.descrizioneFisicaCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="descrizioneFisicaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="livelloBibliograficoCatalogazioneLblView" text="{messages.livelloBibliograficoCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="livelloBibliograficoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="soggettoCatalogazioneLblView" text="{messages.soggettoCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="soggettoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="qualificatoreAutoreCatalogazioneLblView" text="{messages.qualificatoreAutoreCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="qualificatoreAutoreCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="autoreCatalogazioneLblView" text="{messages.autoreCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="autoreCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="qualificatoreAutore2CatalogazioneLblView" text="{messages.qualificatoreAutore2CatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="qualificatoreAutore2CatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="autore2CatalogazioneLblView" text="{messages.autore2CatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="autore2CatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="editoreCatalogazioneLblView" text="{messages.editoreCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="editoreCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="linguaCatalogazioneLblView" text="{messages.linguaCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="linguaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="tipoIdentificativoCatalogazioneLblView" text="{messages.tipoIdentificativoCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="tipoIdentificativoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="identificativoCatalogazioneLblView" text="{messages.identificativoCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="identificativoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="luogoPubblicazioneCatalogazioneLblView" text="{messages.luogoPubblicazioneCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="luogoPubblicazioneCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="qualificatoreDataCatalogazioneLblView" text="{messages.qualificatoreDataCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="qualificatoreDataCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="dataCatalogazioneLblView" text="{messages.dataCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="dataCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="noteCatalogazioneLblView" text="{messages.noteCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="noteCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="scalaCatalogazioneLblView" text="{messages.scalaCatalogazioneView}" labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="scalaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="proiezioneCatalogazioneLblView" text="{messages.proiezioneCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="proiezioneCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="coordinateCatalogazioneLblView" text="{messages.coordinateCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="coordinateCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="contestoArchivisticoCatalogazioneLblView" text="{messages.contestoArchivisticoCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="contestoArchivisticoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="soggettiProduttoriCatalogazioneLblView" text="{messages.soggettiProduttoriCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="soggettiProduttoriCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="linkCatalogoCatalogazioneLblView" text="{messages.linkCatalogoCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="linkCatalogoCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="tipoGraficaCatalogazioneLblView" text="{messages.tipoGraficaCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="tipoGraficaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="supportoPrimarioCatalogazioneLblView" text="{messages.supportoPrimarioCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="supportoPrimarioCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="tecnicaGraficaCatalogazioneLblView" text="{messages.tecnicaGraficaCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="tecnicaGraficaCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+									<container:child layoutData="{formLayoutData}">
+										<form:FieldLabel ui:field="tipoArchivioCatalogazioneLblView" text="{messages.tipoArchivioCatalogazioneView}"
+											labelWidth="200">
+											<form:widget>
+												<g:InlineLabel ui:field="tipoArchivioCatalogazioneView" />
+											</form:widget>
+										</form:FieldLabel>
+									</container:child>
+
+								</container:VerticalLayoutContainer>
+							</container:child>
+						</container:VerticalLayoutContainer>
+
+					</form:FieldSet>
+				</container:child>
+
+				<container:child layoutData="{formButtons}">
+					<container:HBoxLayoutContainer ui:field="buttonsCatalogazioneView" hBoxLayoutAlign="MIDDLE" pack="END">
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnEsportaMetsCatalogazioneView}" icon="{images.info}" ui:field="btnEsportaMetsCatalogazioneView" />
+						</container:child>
+					</container:HBoxLayoutContainer>
+				</container:child>
+			</container:VerticalLayoutContainer>
+
+		</gxt:child>
+
+		<gxt:child config="{tabConfigCronologia}">
+			<grid:Grid ui:field="gridCronologia" />
+		</gxt:child>
+
+		<gxt:child config="{tabConfigSommario}">
+			<container:VerticalLayoutContainer>
+				<container:child layoutData="{treeSommarioScroller}">
+					<container:HorizontalLayoutContainer>
+						<container:child layoutData="{sideSommario}">
+							<grid:Grid ui:field="treeSommario" width="250" />
+						</container:child>
+						<container:child layoutData="{centerSommario}">				    
+							<g:Image url="" ui:field="imageSommario" />
+						</container:child>
+					</container:HorizontalLayoutContainer>
+				</container:child>
+			</container:VerticalLayoutContainer>
+
+		</gxt:child>
+
+		<gxt:child config="{tabConfigAnteprima}">
+
+			<container:VerticalLayoutContainer>
+
+				<container:child layoutData="{formToolbar}">
+					<container:HBoxLayoutContainer ui:field="buttonsAnteprima" hBoxLayoutAlign="MIDDLE" pack="END">
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnBookreaderAnteprima}" icon="{images.classifica}" ui:field="btnBookreaderAnteprima" />
+						</container:child>
+						<container:child layoutData="{formButtonsMargins}">
+							<button:TextButton text="{messages.btnPdfAnteprima}" icon="{images.salvaPdf}" ui:field="btnPdfAnteprima" />
+						</container:child>
+					</container:HBoxLayoutContainer>
+				</container:child>
+				<container:child layoutData="{formContentScroller}">
+					<gxt:ListView ui:field="listAnteprima" />
+				</container:child>
+			</container:VerticalLayoutContainer>
+		</gxt:child>
+
+		<gxt:child config="{tabConfigCorrezioni}">
+
+			<container:VerticalLayoutContainer>
+				<container:child layoutData="{formContentScroller}">
+					<form:FieldSet ui:field="fieldsetCorrezioni" headingText="{messages.fieldsetCorrezioni}" collapsible="false">
+						<container:VerticalLayoutContainer ui:field="fieldsetVlcCorrezioni">
+							<container:child layoutData="{formContentScroller}">
+								<form:TextArea ui:field="noteCorrezioni" />
+							</container:child>
+						</container:VerticalLayoutContainer>
+					</form:FieldSet>
+				</container:child>
+			</container:VerticalLayoutContainer>
+		</gxt:child>
+
+
+
+	</gxt:TabPanel>
+
+
+</ui:UiBinder>
